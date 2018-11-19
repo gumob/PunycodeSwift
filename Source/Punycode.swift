@@ -5,7 +5,7 @@
 
 import Foundation
 
-internal class Punycode {
+public class Punycode {
 
     /// Punycode RFC 3492
     /// See https://www.ietf.org/rfc/rfc3492.txt for standard details
@@ -69,7 +69,7 @@ internal class Punycode {
     ///
     /// - Parameter punycode: Punycode encoding (RFC 3492)
     /// - Returns: Decoded string or nil if the input cannot be decoded
-    internal func decodePunycode(_ punycode: Substring) -> String? {
+    public func decodePunycode(_ punycode: Substring) -> String? {
         var n: Int = initialN
         var i: Int = 0
         var bias: Int = initialBias
@@ -116,7 +116,7 @@ internal class Punycode {
     ///
     /// - Parameter input: Input string
     /// - Returns: Punycode encoded string
-    internal func encodePunycode(_ input: Substring) -> String? {
+    public func encodePunycode(_ input: Substring) -> String? {
         var n: Int = initialN
         var delta: Int = 0
         var bias: Int = initialBias
@@ -176,7 +176,7 @@ internal class Punycode {
     /// Returns new string containing IDNA-encoded hostname
     ///
     /// - Returns: IDNA encoded hostname or nil if the string can't be encoded
-    internal func encodeIDNA(_ input: Substring) -> String? {
+    public func encodeIDNA(_ input: Substring) -> String? {
         let parts: [Substring] = input.split(separator: ".")
         var output: String = ""
         for part: Substring in parts {
@@ -196,7 +196,7 @@ internal class Punycode {
     /// Returns new string containing hostname decoded from IDNA representation
     ///
     /// - Returns: Original hostname or nil if the string doesn't contain correct encoding
-    internal func decodedIDNA(_ input: Substring) -> String? {
+    public func decodedIDNA(_ input: Substring) -> String? {
         let parts: [Substring] = input.split(separator: ".")
         var output: String = ""
         for part: Substring in parts {
