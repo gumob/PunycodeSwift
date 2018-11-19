@@ -1,0 +1,18 @@
+# at v0.6.0
+disabled_rules:
+  - identifier_name
+  - trailing_whitespace
+  - todo
+
+line_length: 480
+function_body_length: 100
+
+identifier_name:
+  excluded:
+    - id
+    - ok
+
+excluded:
+  - Carthage
+  - Pods
+  - fastlane

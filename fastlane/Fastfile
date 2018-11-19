@@ -1,0 +1,54 @@
+default_platform(:ios)
+
+#
+# Workaround for following error while executing `pod lib lint` and `pod trunk push`
+#
+# EXPANDED_CODE_SIGN_IDENTITY: unbound variable
+# Command PhaseScriptExecution failed with a nonzero exit code
+#
+# For more information is available at
+# https://github.com/CocoaPods/CocoaPods/issues/8000#issuecomment-434488071
+#
+ENV["EXPANDED_CODE_SIGN_IDENTITY"] = ""
+ENV["EXPANDED_CODE_SIGN_IDENTITY_NAME"] = ""
+ENV["EXPANDED_PROVISIONING_PROFILE"] = ""
+
+platform :ios do
+
+    desc "Run Tests"
+    lane :tests do
+        xcclean
+        run_tests(
+            scheme: "Punycode-iOS",
+            devices: ["iPhone X"]
+        )
+        run_tests(
+            scheme: "Punycode-macOS",
+            destination: "platform=macOS"
+        )
+        run_tests(
+            scheme: "Punycode-tvOS",
+            devices: ["Apple TV"]
+        )
+    end
+
+    desc "Build Carthage"
+    lane :build_carthage do |options|
+        carthage(
+            command: "build",
+            verbose: true,
+            no_skip_current: true
+        )
+    end
+
+    desc "Lint Cocoapods"
+    lane :lint_cocoapods do |options|
+        pod_lib_lint(verbose: true)
+    end
+
+    desc "Push Cocoapods"
+    lane :push_cocoapods do |options|
+        pod_lib_lint(verbose: true)
+        pod_push(path: "Punycode.podspec")
+    end
+end
