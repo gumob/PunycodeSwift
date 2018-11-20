@@ -36,11 +36,16 @@ Lint Cocoapods
 fastlane ios push_cocoapods
 ```
 Push Cocoapods
-### ios version
+### ios set_version
 ```
-fastlane ios version
+fastlane ios set_version
 ```
-Upgrade version number
+Set version number
+### ios bump_version
+```
+fastlane ios bump_version
+```
+Bump version number
 
 ----
 

@@ -13,7 +13,9 @@ ENV["EXPANDED_CODE_SIGN_IDENTITY"] = ""
 ENV["EXPANDED_CODE_SIGN_IDENTITY_NAME"] = ""
 ENV["EXPANDED_PROVISIONING_PROFILE"] = ""
 
-default_xcodeproj = "Punycode.xcodeproj"
+default_xcodeproj = ENV["DEFAULT_XCODEPROJ"]
+framework_info_plist = ENV["FRAMEWORK_INFO_PLIST"]
+test_info_plist = ENV["TEST_INFO_PLIST"]
 
 platform :ios do
 
@@ -54,21 +56,46 @@ platform :ios do
         pod_push(path: "Punycode.podspec")
     end
 
-    desc "Upgrade version number"
-    lane :version do
-        bump_type = UI.select("Select version position to be upgraded: ", ["patch", "minor", "major"])
-        if ["patch", "minor", "major"].include?(bump_type) then
-            version = increment_version_number(bump_type: bump_type)
+    desc "Set version number"
+    lane :set_version do
+        current_app_version = get_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString')
+        new_app_version = prompt(
+          text: "Please enter version number (Current: #{current_app_version}): ",
+          ci_input: current_app_version
+        )
+        regexp = Regexp.new("[0-9]+\.[0-9]+\.[0-9]+")
+        matched = regexp.match(new_app_version)
+        if matched then
+            set_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
+            set_info_plist_value(path: test_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
+            UI.message("Changed version from #{current_app_version} to #{new_app_version} ")
+        else
+            UI.error("Invalid version number. #{new_app_version}")
         end
-        increment_build_number(build_number: create_new_build_number)
     end
 
-    def create_new_build_number
-        # Current Version Number
-        current_version_number = get_version_number(xcodeproj: $default_xcodeproj)
-        # New Build Number
-        new_build = Time.now.strftime("%Y%m%d%H%M")
-        new_build_number = current_version_number + "." + new_build
-        return new_build_number
+    desc "Bump version number"
+    lane :bump_version do
+        bump_type = UI.select("Select version position to be upgraded: ", ["patch", "minor", "major"])
+        current_app_version = get_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString')
+        current_app_versions = current_app_version.split(".")
+        current_app_version_patch = current_app_versions[2].to_i
+        current_app_version_minor = current_app_versions[1].to_i
+        current_app_version_major = current_app_versions[0].to_i
+        UI.message(current_app_versions)
+        if bump_type == "patch" then
+            current_app_version_patch += 1
+        elsif bump_type == "minor" then
+            current_app_version_patch = 0
+            current_app_version_minor += 1
+        elsif bump_type == "major" then
+            current_app_version_patch = 0
+            current_app_version_minor = 0
+            current_app_version_major += 1
+        end
+        new_app_version = [current_app_version_major, current_app_version_minor, current_app_version_patch].join(".")
+        set_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
+        set_info_plist_value(path: test_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
+        UI.message("Changed version from #{current_app_version_major} to #{new_app_version} ")
     end
 end
