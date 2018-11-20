@@ -36,6 +36,11 @@ Lint Cocoapods
 fastlane ios push_cocoapods
 ```
 Push Cocoapods
+### ios version
+```
+fastlane ios version
+```
+Upgrade version number
 
 ----
 

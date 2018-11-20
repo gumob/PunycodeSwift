@@ -51,4 +51,13 @@ platform :ios do
         pod_lib_lint(verbose: true)
         pod_push(path: "Punycode.podspec")
     end
+
+    desc "Upgrade version number"
+    lane :version do
+        bump_type = UI.select("Select version position to be upgraded: ", ["patch", "minor", "major"])
+        if ["patch", "minor", "major"].include?(bump_type) then
+            version = increment_version_number(bump_type: bump_type)
+        end
+    end
+
 end
