@@ -13,6 +13,8 @@ ENV["EXPANDED_CODE_SIGN_IDENTITY"] = ""
 ENV["EXPANDED_CODE_SIGN_IDENTITY_NAME"] = ""
 ENV["EXPANDED_PROVISIONING_PROFILE"] = ""
 
+default_xcodeproj = "Punycode.xcodeproj"
+
 platform :ios do
 
     desc "Run Tests"
@@ -58,6 +60,15 @@ platform :ios do
         if ["patch", "minor", "major"].include?(bump_type) then
             version = increment_version_number(bump_type: bump_type)
         end
+        increment_build_number(build_number: create_new_build_number)
     end
 
+    def create_new_build_number
+        # Current Version Number
+        current_version_number = get_version_number(xcodeproj: $default_xcodeproj)
+        # New Build Number
+        new_build = Time.now.strftime("%Y%m%d%H%M")
+        new_build_number = current_version_number + "." + new_build
+        return new_build_number
+    end
 end
