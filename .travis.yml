@@ -59,7 +59,6 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
     gem install xcpretty -N --no-ri --no-rdoc;
     gem install cocoapods --pre --no-rdoc --no-ri --no-document;
-    gem install slather;
     brew update;
     brew outdated carthage || brew upgrade carthage;
     fi
@@ -91,5 +90,4 @@ script:
 after_success:
   - if [ "$COVERAGE" == "YES" ]; then
     bash <(curl -s https://codecov.io/bash) -J 'Punycode' -cF "$CODECOV_FLAG";
-    slather;
     fi
