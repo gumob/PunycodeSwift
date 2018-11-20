@@ -21,6 +21,16 @@ or alternatively using `brew cask install fastlane`
 fastlane ios prebuild
 ```
 Prebuild
+### ios set_version
+```
+fastlane ios set_version
+```
+Set version number
+### ios bump_version
+```
+fastlane ios bump_version
+```
+Bump version number
 ### ios tests
 ```
 fastlane ios tests
@@ -41,16 +51,6 @@ Lint Cocoapods
 fastlane ios push_cocoapods
 ```
 Push Cocoapods
-### ios set_version
-```
-fastlane ios set_version
-```
-Set version number
-### ios bump_version
-```
-fastlane ios bump_version
-```
-Bump version number
 
 ----
 
