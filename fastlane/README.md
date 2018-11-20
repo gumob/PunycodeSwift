@@ -16,6 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
+### ios prebuild
+```
+fastlane ios prebuild
+```
+Prebuild
 ### ios tests
 ```
 fastlane ios tests
