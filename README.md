@@ -6,6 +6,8 @@
 ![Language](https://img.shields.io/badge/Language-Swift%204.2-orange.svg)
 ![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
+⚠️ This repository is no longer maintained. Please use [`PunycodeSwift`](https://github.com/gumob/PunycodeSwift) instead.
+
 # PunycodeSwift
 <code>PunycodeSwift</code> is a pure Swift library to allows you to encode and decode `punycoded` strings by using String extension.
 
