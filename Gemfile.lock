@@ -221,6 +221,7 @@ DEPENDENCIES
   cocoapods-deintegrate
   fastlane
   slather
+  xcpretty
 
 BUNDLED WITH
    1.17.1
