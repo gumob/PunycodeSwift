@@ -57,8 +57,8 @@ matrix:
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-    gem install xcpretty -N --no-ri --no-rdoc;
-    gem install cocoapods --pre --no-rdoc --no-ri --no-document;
+    gem install xcpretty -N --no-document;
+    gem install cocoapods --pre --no-document --no-document;
     brew update;
     brew outdated carthage || brew upgrade carthage;
     fi
