@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                   = "Punycode"
-  s.version                = "1.0.1"
+  s.version                = "2.0.0"
   s.summary                = "A Pure Swift library for encode and decode punycoded strings supporting iOS, macOS, and tvOS."
   s.homepage               = "https://github.com/gumob/PunycodeSwift"
   s.license                = { :type => "MIT", :file => "LICENSE" }
@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target  = "9.3"
   s.osx.deployment_target  = "10.12"
   s.tvos.deployment_target = "12.0"
-  s.swift_version          = '4.2'
+  s.swift_version          = '5.0'
 
 end

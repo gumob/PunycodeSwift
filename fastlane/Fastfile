@@ -24,8 +24,8 @@ scheme_iOSTests = ENV["SCHEME_IOS_TEST"]
 scheme_macOSTests = ENV["SCHEME_MACOS_TEST"]
 scheme_tvOSTests = ENV["SCHEME_TVOS_TEST"]
 
-framework_info_plist = ENV["FRAMEWORK_INFO_PLIST"]
-test_info_plist = ENV["TEST_INFO_PLIST"]
+framework_info_plist = "./Source/Info.plist"
+test_info_plist = "./Tests/Info.plist"
 
 platform :ios do
 
