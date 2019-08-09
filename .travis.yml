@@ -39,7 +39,7 @@ matrix:
 #    - env: PROJ="Punycode.xcodeproj" DESTINATION="OS=11.4,name=Apple TV 4K" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" LINT="NO" COVERAGE="NO" CODECOV_FLAG="tvos11"
 #    - env: PROJ="Punycode.xcodeproj" DESTINATION="OS=10.2,name=Apple TV 1080p" SCHEME="$TVOS_SCHEME" RUN_TESTS="YES" LINT="NO" COVERAGE="NO" CODECOV_FLAG="tvos10"
     # macOS Tests
-    - env: SCHEME="$MACOS_SCHEME" RUNTIME="macOS" RUN_TESTS="YES" COVERAGE="NO" CODECOV_FLAG="macos"
+    - env: SCHEME="$MACOS_SCHEME" RUNTIME="macOS" RUN_TESTS="YES" LINT="NO" COVERAGE="NO" CODECOV_FLAG="macos"
 #    - env: PROJ="Punycode.xcodeproj" DESTINATION="arch=x86_64" SCHEME="$MACOS_SCHEME" RUN_TESTS="YES" LINT="NO" COVERAGE="NO" CODECOV_FLAG="macos"
 
 before_install:
@@ -62,16 +62,14 @@ install:
   - ./install-swiftlint.sh;
 
 before_script:
-  - if [ "$RUN_TESTS" == "YES" ]; then
-    - if [ "$RUNTIME" == "macOS" ]; then
-      DESTINATION="arch=x86_64";
-      else
-      DEVICE_ID=com.apple.CoreSimulator.SimDeviceType.$(echo $DEVICE | sed -E -e "s/[ \-]+/ /g" -e "s/[^[:alnum:]]/-/g");
-      RUNTIME_ID=com.apple.CoreSimulator.SimRuntime.$(echo $RUNTIME | sed -E -e "s/[ \-]+/ /g" -e "s/[^[:alnum:]]/-/g");
-      DESTINATION_ID=$(xcrun simctl create Travis $DEVICE_ID $RUNTIME_ID);
-      DESTINATION="id=$DESTINATION_ID";
-      xcrun simctl boot $DESTINATION_ID;
-      fi
+  - if [ "$RUN_TESTS" == "YES" -a "$RUNTIME" == "macOS" ]; then
+    DESTINATION="arch=x86_64";
+    elif [ "$RUN_TESTS" == "YES" -a "$RUNTIME" != "macOS" ]; then
+    DEVICE_ID=com.apple.CoreSimulator.SimDeviceType.$(echo $DEVICE | sed -E -e "s/[ \-]+/ /g" -e "s/[^[:alnum:]]/-/g");
+    RUNTIME_ID=com.apple.CoreSimulator.SimRuntime.$(echo $RUNTIME | sed -E -e "s/[ \-]+/ /g" -e "s/[^[:alnum:]]/-/g");
+    DESTINATION_ID=$(xcrun simctl create Travis $DEVICE_ID $RUNTIME_ID);
+    DESTINATION="id=$DESTINATION_ID";
+    xcrun simctl boot $DESTINATION_ID;
     fi
 
 script:
