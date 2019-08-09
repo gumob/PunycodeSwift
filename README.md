@@ -18,10 +18,10 @@ Punycode is a representation of Unicode with the limited ASCII character subset 
 
 - iOS 9.3 or later
 - macOS 10.12 or later
-- tvOS 12.0 or later
+- tvOS 10.2 or later
 - Swift 4.2 or later
 
-<small>* No plans to support tvOS 11 or earlier for now</small>
+<!--<small>* No plans to support tvOS 11 or earlier for now</small>-->
 
 
 ## Installation
