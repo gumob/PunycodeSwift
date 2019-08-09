@@ -44,8 +44,9 @@ before_install:
     fi
 
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-    bundle install;
-    gem install xcpretty -N --no-document --quiet;
+#    bundle install;
+    gem install cocoapods --no-document --quiet;
+    gem install xcpretty --no-document --quiet;
     pod repo update;
     brew update;
     brew outdated carthage || brew upgrade carthage;
