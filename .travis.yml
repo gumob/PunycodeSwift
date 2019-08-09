@@ -54,17 +54,6 @@ before_install:
 install:
   - ./install-swiftlint.sh;
 
-#before_script:
-#  - if [ "$RUN_TESTS" == "YES" -a "$RUNTIME" == "macOS" ]; then
-#    DESTINATION="arch=x86_64";
-#    elif [ "$RUN_TESTS" == "YES" -a "$RUNTIME" != "macOS" ]; then
-#    DEVICE_ID=com.apple.CoreSimulator.SimDeviceType.$(echo $DEVICE | sed -E -e "s/[ \-]+/ /g" -e "s/[^[:alnum:]]/-/g");
-#    RUNTIME_ID=com.apple.CoreSimulator.SimRuntime.$(echo $RUNTIME | sed -E -e "s/[ \-]+/ /g" -e "s/[^[:alnum:]]/-/g");
-#    DESTINATION_ID=$(xcrun simctl create Travis $DEVICE_ID $RUNTIME_ID);
-#    DESTINATION="id=$DESTINATION_ID";
-#    xcrun simctl boot $DESTINATION_ID;
-#    fi
-
 script:
   - set -o pipefail;
   - swift -version;
