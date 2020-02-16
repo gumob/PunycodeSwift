@@ -7,7 +7,7 @@ let package = Package(
     name: "Punycode",
     products: [
         .library(
-            name: "PunnyCodeSwift",
+            name: "Punnycode",
             targets: ["Punycode"])
     ],
     targets: [
