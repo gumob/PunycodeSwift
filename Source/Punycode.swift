@@ -86,7 +86,7 @@ public class Punycode {
             let oldI: Int = i
             var w: Int = 1
             var k: Int = base
-            while true {
+            repeat {
                 let character: Character = punycodeInput.removeFirst()
                 guard let digit: Int = punycodeIndex(for: character) else {
                     return nil    /// Failing on badly formatted punycode
@@ -98,7 +98,7 @@ public class Punycode {
                 }
                 w *= base - t
                 k += base
-            }
+            } while !punycodeInput.isEmpty
             bias = adaptBias(i - oldI, output.count + 1, oldI == 0)
             n += i / (output.count + 1)
             i %= (output.count + 1)
