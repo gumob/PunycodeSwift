@@ -37,11 +37,11 @@ matrix:
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-    # gem install cocoapods --no-document --quiet;
+    gem install cocoapods --no-document --quiet;
     gem install xcpretty --no-document --quiet;
     pod repo update;
     brew update;
-    # brew outdated carthage || brew upgrade carthage;
+    brew outdated carthage || brew upgrade carthage;
     fi
 
 install:
