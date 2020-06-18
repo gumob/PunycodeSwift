@@ -1,6 +1,6 @@
 language: objective-c
 os: osx
-osx_image: xcode10.2
+osx_image: xcode11.5
 
 branches:
   only:
@@ -24,6 +24,7 @@ env:
 matrix:
   include:
     # iOS Tests
+    - env: SCHEME="$IOS_SCHEME"   DESTINATION="OS=13.5,name=iPhone 11 Pro"  RUN_TESTS="YES" LINT="NO"  COVERAGE="YES" CODECOV_FLAG="ios13"
     - env: SCHEME="$IOS_SCHEME"   DESTINATION="OS=12.1,name=iPhone X"       RUN_TESTS="YES" LINT="NO"  COVERAGE="YES" CODECOV_FLAG="ios12"
     - env: SCHEME="$IOS_SCHEME"   DESTINATION="OS=11.4,name=iPhone 7 Plus"  RUN_TESTS="YES" LINT="YES" COVERAGE="NO"  CODECOV_FLAG="ios11"
     - env: SCHEME="$IOS_SCHEME"   DESTINATION="OS=10.3.1,name=iPhone 6"     RUN_TESTS="YES" LINT="NO"  COVERAGE="NO"  CODECOV_FLAG="ios10"
