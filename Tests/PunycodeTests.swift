@@ -109,6 +109,11 @@ final class PunycodeTests: XCTestCase {
         XCTAssert(idnaCode.idnaDecoded == idna)
     }
 
+    func testInvalidPunycodeIsNotFatal() {
+        let invalidPunycode: String = "xn--g"
+        XCTAssertNoThrow(invalidPunycode.idnaDecoded)
+    }
+
 //    func testFoo1() {
 //        var sushi: String = "寿司"
 //
