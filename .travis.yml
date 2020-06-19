@@ -37,6 +37,7 @@ matrix:
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+    bundle clean --force
     gem install cocoapods --no-document --quiet;
     gem install xcpretty --no-document --quiet;
     pod repo update;
