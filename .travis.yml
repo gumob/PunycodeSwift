@@ -9,8 +9,8 @@ branches:
 #    - "/^v?[0-9\\.]+/"
 
 cache:
-#  bundler: true
-#  cocoapods: true
+  bundler: true
+  cocoapods: true
   directories:
     - Carthage
 
