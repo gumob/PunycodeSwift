@@ -8,6 +8,7 @@
 ![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
 # PunycodeSwift
+
 <code>PunycodeSwift</code> is a pure Swift library to allows you to encode and decode `punycoded` strings by using String extension.
 
 ## What is Punycode?
@@ -23,14 +24,13 @@ Punycode is a representation of Unicode with the limited ASCII character subset 
 
 <!--<small>* No plans to support tvOS 11 or earlier for now</small>-->
 
-
 ## Installation
 
 ### Carthage
 
 Add the following to your `Cartfile` and follow [these instructions](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
-```
+```Certfile
 github "gumob/PunycodeSwift"          # Latest (Swift 5.0)
 github "gumob/PunycodeSwift" ~> 2.0   # Swift 5.0
 github "gumob/PunycodeSwift" ~> 1.0   # Swift 4.2
@@ -53,7 +53,7 @@ pod 'Punycode', '~> 1.0'   # Swift 4.2
 
 Encode and decode IDNA:
 
-```
+```swift
 import Punycode
 
 var sushi: String = "寿司"
@@ -67,7 +67,7 @@ print(sushi)  // "寿司"
 
 Encode and decode Punycode directly:
 
-```
+```swift
 import Punycode
 
 var sushi: String = "寿司"
