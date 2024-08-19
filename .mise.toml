@@ -1,0 +1,7 @@
+[tools]
+python = "3.11.9"
+# python = {version="3.11.9", virtualenv=".venv"}
+ruby = "3.2.5"
+
+[env]
+_.python.venv = ".venv"
