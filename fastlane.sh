@@ -1,14 +1,14 @@
 #!/bin/zsh
 
 local option_list=(
-	"bundle exec fastlane ios prebuild"
-	"bundle exec fastlane ios set_version"
-	"bundle exec fastlane ios bump_version"
-	"bundle exec fastlane ios tests"
-	"bundle exec fastlane ios lint_spm"
-	"bundle exec fastlane ios build_carthage"
-	"bundle exec fastlane ios lint_cocoapods"
-	"bundle exec fastlane ios push_cocoapods"
+	"bundle exec fastlane prebuild"
+	"bundle exec fastlane set_version"
+	"bundle exec fastlane bump_version"
+	"bundle exec fastlane test_all"
+	"bundle exec fastlane lint_spm"
+	"bundle exec fastlane build_carthage"
+	"bundle exec fastlane lint_cocoapods"
+	"bundle exec fastlane push_cocoapods"
 )
 
 if ! command -v fzf &> /dev/null; then
