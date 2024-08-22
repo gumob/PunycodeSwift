@@ -1,0 +1,87 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/configuration-reference
+
+# For a detailed guide to building and testing on iOS, read the docs:
+# https://circleci.com/docs/testing-ios/
+version: 2.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
+jobs:
+  build:
+    # Specify the execution environment. 
+    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
+    macos:
+      # Specify the Xcode version you desire here
+      # See: https://circleci.com/docs/using-macos/
+      xcode: 15.2.0
+
+    # Add steps to the job
+    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
+    steps:
+      - checkout # Checkout the code as the first step.
+      - run: fastlane scan # Run tests using Fastlane
+
+      # Collect XML test results data to show in the UI, and save the same XML
+      # files under test-results folder in the Artifacts tab
+      - store_test_results:
+          path: test_output
+      - store_artifacts:
+          path: test_output
+          destination: scan-output
+
+      - run:
+          name: Install Dependencies
+          command: |
+            gem install cocoapods --no-document --quiet
+            gem install xcpretty --no-document --quiet
+            pod repo update
+            brew update
+            brew outdated carthage || brew upgrade carthage
+
+      - run:
+          name: Install SwiftLint
+          command: ./install-swiftlint.sh
+
+      - run:
+          name: Show Swift Version
+          command: swift -version
+
+      - run:
+          name: Run Tests
+          command: |
+            set -o pipefail
+            xcrun simctl list
+            xcodebuild -version
+            xcodebuild -showsdks
+            xcodebuild -list
+
+      - run:
+          name: Build and Test
+          command: |
+            if [ "$RUN_TESTS" == "YES" ]; then
+              xcodebuild clean test -project "Punycode.xcodeproj" -scheme "$SCHEME" -destination "$DESTINATION" -enableCodeCoverage $COVERAGE | xcpretty -c
+            else
+              xcodebuild clean build -project "Punycode.xcodeproj" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Release | xcpretty -c
+            fi
+
+      - run:
+          name: Lint
+          command: |
+            if [ "$LINT" == "YES" ]; then
+              swiftlint
+              carthage build --no-skip-current
+            fi
+
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
+workflows:
+  version: 2
+  test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+                - develop
