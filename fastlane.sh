@@ -1,21 +1,20 @@
 #!/bin/zsh
 
 local option_list=(
-	"bundle exec fastlane prebuild"
-	"bundle exec fastlane set_version"
-	"bundle exec fastlane bump_version"
-	"bundle exec fastlane test_all"
-	"bundle exec fastlane lint_spm"
-	"bundle exec fastlane build_carthage"
-	"bundle exec fastlane lint_cocoapods"
-	"bundle exec fastlane push_cocoapods"
+	"fastlane prebuild"
+	"fastlane test_all"
+	"fastlane lint_spm"
+	"fastlane build_carthage"
+	"fastlane lint_cocoapods"
+	"fastlane push_cocoapods"
+	"fastlane set_version"
+	"fastlane bump_version"
 )
 
 if ! command -v fzf &> /dev/null; then
     tput setaf 1; echo "fzf is not installed."; tput sgr0
     exit 1
 fi
-
 
 local command=$(printf "%s\n" "${option_list[@]}" | fzf --ansi --prompt="Select a fastlane command > ")
 
@@ -24,6 +23,7 @@ if [ -z "$command" ]; then
 	exit 1
 fi
 
+command="bundle exec $command"
 echo "\n$command\n"
 eval $command
 
