@@ -27,133 +27,149 @@ scheme_tvOSTests = ENV["SCHEME_TVOS_TEST"]
 framework_info_plist = "./Source/Info.plist"
 test_info_plist = "./Tests/Info.plist"
 
-platform :ios do
+desc "Prebuild"
+lane :prebuild do
+    tests
+    build_carthage
+    lint_cocoapods
+end
 
-    desc "Prebuild"
-    lane :prebuild do
-        tests
-        build_carthage
-        lint_cocoapods
-    end
+puts "default_xcodeproj: #{default_xcodeproj}"
+puts "default_podspec: #{default_podspec}"
 
-    ##########################################
-    # Versioning
-    ##########################################
+puts "scheme_iOS: #{scheme_iOS}"
+puts "scheme_macOS: #{scheme_macOS}"
+puts "scheme_tvOS: #{scheme_tvOS}"
 
-    desc "Set version number"
-    lane :set_version do
-        current_app_version = get_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString')
-        new_app_version = prompt(
-          text: "Please enter version number (Current: #{current_app_version}): ",
-          ci_input: current_app_version
-        )
-        regexp = Regexp.new("[0-9]+\.[0-9]+\.[0-9]+")
-        matched = regexp.match(new_app_version)
-        if matched then
-            set_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
-            set_info_plist_value(path: test_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
-            version_bump_podspec(path: default_podspec, version_number: new_app_version)
-            UI.message("Changed version from #{current_app_version} to #{new_app_version} ")
-        else
-            UI.error("Invalid version number. #{new_app_version}")
-        end
-    end
+puts "scheme_iOSTests: #{scheme_iOSTests}"
+puts "scheme_macOSTests: #{scheme_macOSTests}"
+puts "scheme_tvOSTests: #{scheme_tvOSTests}"
 
-    desc "Bump version number"
-    lane :bump_version do
-        bump_type = UI.select("Select version position to be upgraded: ", ["patch", "minor", "major"])
-        current_app_version = get_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString')
-        current_app_versions = current_app_version.split(".")
-        current_app_version_patch = current_app_versions[2].to_i
-        current_app_version_minor = current_app_versions[1].to_i
-        current_app_version_major = current_app_versions[0].to_i
-        UI.message(current_app_versions)
-        if bump_type == "patch" then
-            current_app_version_patch += 1
-        elsif bump_type == "minor" then
-            current_app_version_patch = 0
-            current_app_version_minor += 1
-        elsif bump_type == "major" then
-            current_app_version_patch = 0
-            current_app_version_minor = 0
-            current_app_version_major += 1
-        end
-        new_app_version = [current_app_version_major, current_app_version_minor, current_app_version_patch].join(".")
+##########################################
+# Versioning
+##########################################
+
+desc "Set version number"
+lane :set_version do
+    current_app_version = get_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString')
+    new_app_version = prompt(
+        text: "Please enter version number (Current: #{current_app_version}): ",
+        ci_input: current_app_version
+    )
+    regexp = Regexp.new("[0-9]+\.[0-9]+\.[0-9]+")
+    matched = regexp.match(new_app_version)
+    if matched then
         set_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
         set_info_plist_value(path: test_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
         version_bump_podspec(path: default_podspec, version_number: new_app_version)
-        UI.message("Changed version from #{current_app_version_major} to #{new_app_version} ")
+        UI.message("Changed version from #{current_app_version} to #{new_app_version} ")
+    else
+        UI.error("Invalid version number. #{new_app_version}")
     end
+end
 
-    ##########################################
-    # Test
-    ##########################################
-
-    desc "Run Tests"
-    lane :tests do
-        xcclean
-        run_tests(
-            scheme: scheme_iOS,
-            devices: ["iPhone SE (3rd generation)"],
-#             clean: true,
-            code_coverage: true
-        )
-#         slather(
-#             scheme: scheme_iOS,
-#             proj: default_xcodeproj,
-#             output_directory: "./reports/iOS",
-#             html: true,
-#             show: true
-#         )
-        run_tests(
-            scheme: scheme_macOS,
-            destination: "platform=macOS",
-#             clean: true,
-            code_coverage: true
-        )
-#         slather(
-#             scheme: scheme_macOS,
-#             proj: default_xcodeproj,
-#             output_directory: "./reports/macOS",
-#             html: true,
-#             show: true
-#         )
-        run_tests(
-            scheme: scheme_tvOS,
-            devices: ["Apple TV"],
-#             clean: true,
-            code_coverage: true
-        )
-#         slather(
-#             scheme: scheme_tvOS,
-#             proj: default_xcodeproj,
-#             output_directory: "./reports/tvOS",
-#             html: true,
-#             show: true
-#         )
+desc "Bump version number"
+lane :bump_version do
+    bump_type = UI.select("Select version position to be upgraded: ", ["patch", "minor", "major"])
+    current_app_version = get_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString')
+    current_app_versions = current_app_version.split(".")
+    current_app_version_patch = current_app_versions[2].to_i
+    current_app_version_minor = current_app_versions[1].to_i
+    current_app_version_major = current_app_versions[0].to_i
+    UI.message(current_app_versions)
+    if bump_type == "patch" then
+        current_app_version_patch += 1
+    elsif bump_type == "minor" then
+        current_app_version_patch = 0
+        current_app_version_minor += 1
+    elsif bump_type == "major" then
+        current_app_version_patch = 0
+        current_app_version_minor = 0
+        current_app_version_major += 1
     end
+    new_app_version = [current_app_version_major, current_app_version_minor, current_app_version_patch].join(".")
+    set_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
+    set_info_plist_value(path: test_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
+    version_bump_podspec(path: default_podspec, version_number: new_app_version)
+    UI.message("Changed version from #{current_app_version_major} to #{new_app_version} ")
+end
 
-    ##########################################
-    # Package Manager
-    ##########################################
+##########################################
+# Test
+##########################################
 
-    desc "Build Carthage"
-    lane :build_carthage do |options|
-        carthage(
-            command: "build",
-            verbose: true,
-            no_skip_current: true
-        )
-    end
+desc "Run all tests"
+lane :test_all do
+    xcclean
 
-    desc "Lint Cocoapods"
-    lane :lint_cocoapods do |options|
-        pod_lib_lint(verbose: true)
-    end
+    desc "Run iOS Tests"
+    run_tests(
+        scheme: scheme_iOS,
+        devices: ["iPhone SE (3rd generation)"],
+        # devices: ["iPhone SE (3rd generation)"],
+        # clean: true,
+        code_coverage: true
+    )
+    # slather(
+    #     scheme: scheme_iOS,
+    #     proj: default_xcodeproj,
+    #     output_directory: "./reports/iOS",
+    #     html: true,
+    #     show: true
+    # )
+    
+    desc "Run macOS Tests"
+    run_tests(
+        scheme: scheme_macOS,
+        destination: "platform=macOS",
+        # clean: true,
+        code_coverage: true
+    )
+    # slather(
+    #     scheme: scheme_macOS,
+    #     proj: default_xcodeproj,
+    #     output_directory: "./reports/macOS",
+    #     html: true,
+    #     show: true
+    # )
 
-    desc "Push Cocoapods"
-    lane :push_cocoapods do |options|
-        pod_lib_lint(verbose: true)
-        pod_push(path: default_podspec)
-    end
+    desc "Run tvOS Tests"
+    run_tests(
+        scheme: scheme_tvOS,
+        destination: "platform=tvOS Simulator,name=Apple TV 4K (3rd generation)",
+        # clean: true,
+        code_coverage: true
+    )
+    # slather(
+    #     scheme: scheme_tvOS,
+    #     proj: default_xcodeproj,
+    #     output_directory: "./reports/tvOS",
+    #     html: true,
+    #     show: true
+    # )
+end
+# End of Selection
+
+##########################################
+# Package Manager
+##########################################
+
+desc "Build Carthage"
+lane :build_carthage do |options|
+    carthage(
+        command: "build",
+        verbose: true,
+        no_skip_current: true
+    )
+end
+
+desc "Lint Cocoapods"
+lane :lint_cocoapods do |options|
+    pod_lib_lint(verbose: true)
+end
+
+desc "Push Cocoapods"
+lane :push_cocoapods do |options|
+    pod_lib_lint(verbose: true)
+    pod_push(path: default_podspec)
 end
