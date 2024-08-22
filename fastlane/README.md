@@ -27,7 +27,7 @@ Just run `./fastlane.sh` on the project root directory.
 ### ios prebuild
 
 ```sh
-bundle exec fastlane ios prebuild
+bundle exec fastlane prebuild
 ```
 
 Prebuild
@@ -35,7 +35,7 @@ Prebuild
 ### ios set_version
 
 ```sh
-bundle exec fastlane ios set_version
+bundle exec fastlane set_version
 ```
 
 Set version number
@@ -43,7 +43,7 @@ Set version number
 ### ios bump_version
 
 ```sh
-bundle exec fastlane ios bump_version
+bundle exec fastlane bump_version
 ```
 
 Bump version number
@@ -51,7 +51,7 @@ Bump version number
 ### ios tests
 
 ```sh
-bundle exec fastlane ios tests
+bundle exec fastlane tests
 ```
 
 Run Tests
@@ -59,7 +59,7 @@ Run Tests
 ### ios build_carthage
 
 ```sh
-bundle exec fastlane ios build_carthage
+bundle exec fastlane build_carthage
 ```
 
 Build Carthage
@@ -67,7 +67,7 @@ Build Carthage
 ### ios lint_cocoapods
 
 ```sh
-bundle exec fastlane ios lint_cocoapods
+bundle exec fastlane lint_cocoapods
 ```
 
 Lint Cocoapods
@@ -75,7 +75,7 @@ Lint Cocoapods
 ### ios push_cocoapods
 
 ```sh
-bundle exec fastlane ios push_cocoapods
+bundle exec fastlane push_cocoapods
 ```
 
 Push Cocoapods
