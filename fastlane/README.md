@@ -1,7 +1,8 @@
-fastlane documentation
+# Fastlane Documentation
+
 ----
 
-# Installation
+## Installation
 
 Make sure you have the latest version of the Xcode command line tools installed:
 
@@ -11,65 +12,53 @@ xcode-select --install
 
 For _fastlane_ installation instructions, see [Installing _fastlane_](https://docs.fastlane.tools/#installing-fastlane)
 
-# Available Actions
+## Available Actions
 
-## iOS
+### iOS
 
-### ios prebuild
+#### ios prebuild
+
+Prebuild
 
 ```sh
 [bundle exec] fastlane ios prebuild
 ```
 
-Prebuild
-
-### ios set_version
+#### Set version number
 
 ```sh
 [bundle exec] fastlane ios set_version
 ```
 
-Set version number
-
-### ios bump_version
+#### Bump version number
 
 ```sh
 [bundle exec] fastlane ios bump_version
 ```
 
-Bump version number
-
-### ios tests
+#### Run Tests
 
 ```sh
 [bundle exec] fastlane ios tests
 ```
 
-Run Tests
-
-### ios build_carthage
+#### Build Carthage
 
 ```sh
 [bundle exec] fastlane ios build_carthage
 ```
 
-Build Carthage
-
-### ios lint_cocoapods
+#### Lint Cocoapods
 
 ```sh
 [bundle exec] fastlane ios lint_cocoapods
 ```
 
-Lint Cocoapods
-
-### ios push_cocoapods
+#### Push Cocoapods
 
 ```sh
 [bundle exec] fastlane ios push_cocoapods
 ```
-
-Push Cocoapods
 
 ----
 
