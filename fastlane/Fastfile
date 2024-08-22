@@ -30,7 +30,7 @@ test_info_plist = "./Tests/Info.plist"
 desc "Prebuild"
 lane :prebuild do
     test_all
-    lint_spm
+    build_spm
     build_carthage
     lint_cocoapods
 end
@@ -156,9 +156,9 @@ end
 ##########################################
 
 desc "Lint Swift Package Manager"
-lane :lint_spm do |options|
+lane :build_spm do |options|
     spm(
-        command: "test",
+        command: "build",
         parallel: true
     )
 end
