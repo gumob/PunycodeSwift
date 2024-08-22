@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source                 = { :git => "https://github.com/gumob/PunycodeSwift.git", :tag => "#{s.version}" }
   s.source_files           = "Source/*.{swift}"
   s.ios.deployment_target  = "12.0"
-  s.osx.deployment_target  = "10.14.6"
+  s.osx.deployment_target  = "10.13"
   s.tvos.deployment_target = "12.0"
   s.swift_version          = '5.0'
 
