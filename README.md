@@ -1,10 +1,11 @@
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange)](https://github.com/gumob/PunycodeSwift)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/gumob/PunycodeSwift)
+[![Cocoapods compatible](https://img.shields.io/cocoapods/v/Punycode.svg)](https://cocoapods.org/pods/Punycode)
 [![Version](http://img.shields.io/cocoapods/v/Punycode.svg)](http://cocoadocs.org/docsets/Punycode)
 [![Platform](http://img.shields.io/cocoapods/p/Punycode.svg)](http://cocoadocs.org/docsets/Punycode)
 [![Build Status](https://travis-ci.com/gumob/PunycodeSwift.svg?branch=master)](https://travis-ci.com/gumob/PunycodeSwift)
 [![codecov](https://codecov.io/gh/gumob/PunycodeSwift/branch/master/graph/badge.svg)](https://codecov.io/gh/gumob/PunycodeSwift)
 ![Language](https://img.shields.io/badge/Language-Swift%205.0-orange.svg)
-![Language](https://img.shields.io/badge/Language-Swift%204.2-orange.svg)
 ![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
 # PunycodeSwift
@@ -17,10 +18,10 @@ Punycode is a representation of Unicode with the limited ASCII character subset 
 
 ## Requirements
 
-- iOS 9.3 or later
-- macOS 10.12 or later
-- tvOS 10.2 or later
-- Swift 4.2 or later
+- iOS 12.0 or later
+- macOS 10.14.6 or later
+- tvOS 12.0 or later
+- Swift 5.0 or later
 
 <!--<small>* No plans to support tvOS 11 or earlier for now</small>-->
 
@@ -32,7 +33,7 @@ Add the following to your `Cartfile` and follow [these instructions](https://git
 
 ```Certfile
 github "gumob/PunycodeSwift"          # Latest (Swift 5.0)
-github "gumob/PunycodeSwift" ~> 2.0   # Swift 5.0
+github "gumob/PunycodeSwift" ~> 2.2   # Swift 5.0
 github "gumob/PunycodeSwift" ~> 1.0   # Swift 4.2
 ```
 
@@ -41,11 +42,11 @@ github "gumob/PunycodeSwift" ~> 1.0   # Swift 4.2
 To integrate Punycode into your project, add the following to your `Podfile`.
 
 ```ruby
-platform :ios, '9.3'
+platform :ios, '12.0'
 use_frameworks!
 
 pod 'Punycode'             # Latest (Swift 5.0)
-pod 'Punycode', '~> 2.0'   # Swift 5.0
+pod 'Punycode', '~> 2.2'   # Swift 5.0
 pod 'Punycode', '~> 1.0'   # Swift 4.2
 ```
 
