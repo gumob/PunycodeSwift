@@ -3,7 +3,7 @@
 local option_list=(
 	"fastlane prebuild"
 	"fastlane test_all"
-	"fastlane lint_spm"
+	"fastlane build_spm"
 	"fastlane build_carthage"
 	"fastlane lint_cocoapods"
 	"fastlane push_cocoapods"
