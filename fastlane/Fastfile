@@ -167,7 +167,23 @@ desc "Build Carthage"
 lane :build_carthage do |options|
     carthage(
         command: "build",
-        verbose: true,
+        verbose: false,
+        platform: "iOS",
+        use_xcframeworks: true,
+        no_skip_current: true
+    )
+    carthage(
+        command: "build",
+        verbose: false,
+        platform: "Mac",
+        # use_xcframeworks: true,
+        no_skip_current: true
+    )
+    carthage(
+        command: "build",
+        verbose: false,
+        platform: "tvOS",
+        use_xcframeworks: true,
         no_skip_current: true
     )
 end
