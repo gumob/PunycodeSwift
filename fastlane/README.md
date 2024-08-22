@@ -12,7 +12,7 @@ xcode-select --install
 For _fastlane_ installation instructions, see [Installing _fastlane_](https://docs.fastlane.tools/#installing-fastlane)
 
 
-## fuzzy command
+# fuzzy command
 
 Just run `./fastlane.sh` on the project root directory.
 
