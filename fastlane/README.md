@@ -11,6 +11,15 @@ xcode-select --install
 
 For _fastlane_ installation instructions, see [Installing _fastlane_](https://docs.fastlane.tools/#installing-fastlane)
 
+
+## fuzzy command
+
+Just run `./fastlane.sh` on the project root directory.
+
+```sh
+./fastlane.sh
+```
+
 # Available Actions
 
 ## iOS
@@ -18,7 +27,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ### ios prebuild
 
 ```sh
-[bundle exec] fastlane ios prebuild
+bundle exec fastlane ios prebuild
 ```
 
 Prebuild
@@ -26,7 +35,7 @@ Prebuild
 ### ios set_version
 
 ```sh
-[bundle exec] fastlane ios set_version
+bundle exec fastlane ios set_version
 ```
 
 Set version number
@@ -34,7 +43,7 @@ Set version number
 ### ios bump_version
 
 ```sh
-[bundle exec] fastlane ios bump_version
+bundle exec fastlane ios bump_version
 ```
 
 Bump version number
@@ -42,7 +51,7 @@ Bump version number
 ### ios tests
 
 ```sh
-[bundle exec] fastlane ios tests
+bundle exec fastlane ios tests
 ```
 
 Run Tests
@@ -50,7 +59,7 @@ Run Tests
 ### ios build_carthage
 
 ```sh
-[bundle exec] fastlane ios build_carthage
+bundle exec fastlane ios build_carthage
 ```
 
 Build Carthage
@@ -58,7 +67,7 @@ Build Carthage
 ### ios lint_cocoapods
 
 ```sh
-[bundle exec] fastlane ios lint_cocoapods
+bundle exec fastlane ios lint_cocoapods
 ```
 
 Lint Cocoapods
@@ -66,7 +75,7 @@ Lint Cocoapods
 ### ios push_cocoapods
 
 ```sh
-[bundle exec] fastlane ios push_cocoapods
+bundle exec fastlane ios push_cocoapods
 ```
 
 Push Cocoapods
