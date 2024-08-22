@@ -7,7 +7,7 @@ let package = Package(
     name: "Punycode",
     products: [
         .library(
-            name: "Punnycode",
+            name: "Punycode",
             targets: ["Punycode"])
     ],
     targets: [
@@ -16,7 +16,7 @@ let package = Package(
             dependencies: [],
             path: "Source"),
         .testTarget(
-            name: "PunnycodeSwiftTests",
+            name: "PunycodeSwiftTests",
             dependencies: ["Punycode"],
             path: "Tests")
     ]
