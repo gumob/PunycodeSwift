@@ -109,7 +109,9 @@ lane :test_all do
         devices: ["iPhone SE (3rd generation)"],
         # devices: ["iPhone SE (3rd generation)"],
         # clean: true,
-        code_coverage: true
+        code_coverage: true,
+        open_report: true,
+        output_files: "report-ios.html,report-ios.junit",
     )
     # slather(
     #     scheme: scheme_iOS,
@@ -124,7 +126,9 @@ lane :test_all do
         scheme: scheme_macOS,
         destination: "platform=macOS",
         # clean: true,
-        code_coverage: true
+        code_coverage: true,
+        open_report: true,
+        output_files: "report-macos.html,report-macos.junit",
     )
     # slather(
     #     scheme: scheme_macOS,
@@ -139,7 +143,9 @@ lane :test_all do
         scheme: scheme_tvOS,
         destination: "platform=tvOS Simulator,name=Apple TV 4K (3rd generation)",
         # clean: true,
-        code_coverage: true
+        code_coverage: true,
+        open_report: true,
+        output_files: "report-tvos.html,report-tvos.junit",
     )
     # slather(
     #     scheme: scheme_tvOS,
