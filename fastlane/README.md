@@ -16,9 +16,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ### iOS
 
-#### ios prebuild
-
-Prebuild
+#### Prebuild
 
 ```sh
 [bundle exec] fastlane ios prebuild
