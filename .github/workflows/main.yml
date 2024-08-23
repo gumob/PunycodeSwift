@@ -45,7 +45,7 @@ jobs:
     runs-on: macos-14
     strategy:
       matrix:
-        swift: ["5.10.1", "5.9.2", "5.7.2", "5.0.1"]
+        swift: ["5.10", "5.9", "5.7", "5.0"]
     steps:
       - name: Setup Swift
         uses: swift-actions/setup-swift@v2
