@@ -19,10 +19,14 @@ default_podspec = ENV["DEFAULT_PODSPEC"]
 scheme_iOS = ENV["SCHEME_IOS"]
 scheme_macOS = ENV["SCHEME_MACOS"]
 scheme_tvOS = ENV["SCHEME_TVOS"]
+scheme_watchOS = ENV["SCHEME_WATCHOS"]
+scheme_visionOS = ENV["SCHEME_VISIONOS"]
 
 scheme_iOSTests = ENV["SCHEME_IOS_TEST"]
 scheme_macOSTests = ENV["SCHEME_MACOS_TEST"]
 scheme_tvOSTests = ENV["SCHEME_TVOS_TEST"]
+scheme_watchOSTests = ENV["SCHEME_WATCHOS_TEST"]
+scheme_visionOSTests = ENV["SCHEME_VISIONOS_TEST"]
 
 framework_info_plist = "./Source/Info.plist"
 test_info_plist = "./Tests/Info.plist"
@@ -41,10 +45,14 @@ puts "default_podspec: #{default_podspec}"
 puts "scheme_iOS: #{scheme_iOS}"
 puts "scheme_macOS: #{scheme_macOS}"
 puts "scheme_tvOS: #{scheme_tvOS}"
+puts "scheme_watchOS: #{scheme_watchOS}"
+puts "scheme_visionOS: #{scheme_visionOS}"
 
 puts "scheme_iOSTests: #{scheme_iOSTests}"
 puts "scheme_macOSTests: #{scheme_macOSTests}"
 puts "scheme_tvOSTests: #{scheme_tvOSTests}"
+puts "scheme_watchOSTests: #{scheme_watchOSTests}"
+puts "scheme_visionOSTests: #{scheme_visionOSTests}"
 
 ##########################################
 # Versioning
@@ -154,6 +162,27 @@ lane :test_all do
     #     html: true,
     #     show: true
     # )
+
+    desc "Run watchOS Tests"
+    run_tests(
+        scheme: scheme_watchOS,
+        destination: "platform=watchOS Simulator,name=Apple Watch Series 9 (45mm)",
+        # clean: true,
+        code_coverage: true,
+        open_report: true,
+        output_files: "report-watchos.html,report-watchos.junit",
+    )
+
+    desc "Run visionOS Tests"
+    run_tests(
+        scheme: scheme_visionOS,
+        destination: "platform=visionOS Simulator,name=Apple Vision Pro",
+        # clean: true,
+        code_coverage: true,
+        open_report: true,
+        output_files: "report-visionos.html,report-visionos.junit",
+    )
+
 end
 
 ##########################################
@@ -188,6 +217,20 @@ lane :build_carthage do |options|
         command: "build",
         verbose: false,
         platform: "tvOS",
+        use_xcframeworks: true,
+        no_skip_current: true
+    )
+    carthage(
+        command: "build",
+        verbose: false,
+        platform: "watchOS",
+        use_xcframeworks: true,
+        no_skip_current: true
+    )
+    carthage(
+        command: "build",
+        verbose: false,
+        platform: "visionOS",
         use_xcframeworks: true,
         no_skip_current: true
     )
