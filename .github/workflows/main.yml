@@ -6,9 +6,8 @@ name: Swift
 on:
   push:
     branches:
-      # - master
       - develop
-      - "!release*"
+      - "!release/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -19,9 +18,8 @@ on:
       - Tests/**
   pull_request:
     branches:
-      # - master
       - develop
-      - "!release*"
+      - "!release/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -53,7 +51,7 @@ jobs:
     runs-on: macos-14
     strategy:
       matrix:
-        swift: ["5.10", "5.9", "5.7", "5.0"]
+        swift: ["5.10", "5.9", "5.8", "5.0"]
     steps:
       - name: Setup Swift
         uses: swift-actions/setup-swift@v2
