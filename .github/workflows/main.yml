@@ -27,7 +27,29 @@ on:
       - Source/**
       - Tests/**
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  spm:
+    name: Swift ${{ matrix.swift }}
+    runs-on: macos-14
+    strategy:
+      matrix:
+        swift: ["5.10.1", "5.9.2", "5.7.2", "5.0.1"]
+    steps:
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: ${{ matrix.swift }}
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        run: swift build
+      - name: Run tests
+        run: swift test
+
   cocoapods:
     runs-on: macos-14
     strategy:
@@ -46,7 +68,8 @@ jobs:
       - name: Update CocoaPods
         if: ${{ matrix.platform == 'visionos' }}
         run: gem install cocoapods
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
       ### Manually expanding out static frameworks to avoid making to many jobs.
       - name: Pod lib lint
         run: |
@@ -63,16 +86,22 @@ jobs:
 
   carthage:
     runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
+        platform: ["ios", "macos", "tvos"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4 
-            Punycode.podspec
-
-  spm:
-    runs-on: macos-14
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
+      - name: Run SwiftLint and Build Carthage for ${{ matrix.platform }}
+        run: |
+          swiftlint
+          carthage build \
+            --no-skip-current \
+            --platform ${{ matrix.platform }} \
+            --use-xcframeworks \
+            --cache-builds
 
   build:
     name: ${{ matrix.run-config.scheme }}
