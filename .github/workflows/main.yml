@@ -46,6 +46,7 @@ jobs:
           set -o pipefail
           swiftlint lint --quiet | sed -E 's/^(.*):([0-9]+):([0-9]+): (warning|error|[^:]+): (.*)/::\4 title=Lint error,file=\1,line=\2,col=\3::\5\n\1:\2:\3/'
   
+  ### ref: https://github.com/Alamofire/Alamofire/blob/master/.github/workflows/ci.yml
   macOS:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.runsOn }}
@@ -57,25 +58,25 @@ jobs:
       matrix:
         include:
           - xcode: "Xcode_15.4"
-            runsOn: firebreak
+            runsOn: macos-14
             name: "macOS 14, Xcode 15.4, Swift 5.10"
             testPlan: "macOS"
             outputFilter: xcbeautify --renderer github-actions
           - xcode: "Xcode_15.2"
-            runsOn: firebreak
+            runsOn: macos-14
             name: "macOS 14, Xcode 15.2, Swift 5.9.2"
             testPlan: "macOS"
             outputFilter: xcbeautify --renderer github-actions
-          - xcode: "Xcode_15.1"
-            runsOn: macOS-14
-            name: "macOS 14, Xcode 15.1, Swift 5.9.1"
-            testPlan: "macOS"
-            outputFilter: xcbeautify --renderer github-actions
-          - xcode: "Xcode_15.0.1"
-            runsOn: macOS-14
-            name: "macOS 14, Xcode 15.0.1, Swift 5.9.0"
-            testPlan: "macOS"
-            outputFilter: xcbeautify --renderer github-actions
+          # - xcode: "Xcode_15.1"
+          #   runsOn: macOS-14
+          #   name: "macOS 14, Xcode 15.1, Swift 5.9.1"
+          #   testPlan: "macOS"
+          #   outputFilter: xcbeautify --renderer github-actions
+          # - xcode: "Xcode_15.0.1"
+          #   runsOn: macOS-14
+          #   name: "macOS 14, Xcode 15.0.1, Swift 5.9.0"
+          #   testPlan: "macOS"
+          #   outputFilter: xcbeautify --renderer github-actions
           - xcode: "Xcode_14.3.1"
             runsOn: macOS-13
             name: "macOS 13, Xcode 14.3.1, Swift 5.8.0"
@@ -86,18 +87,18 @@ jobs:
             name: "macOS 12, Xcode 14.2, Swift 5.7.2"
             testPlan: "macOS"
             outputFilter: xcpretty
-          - xcode: "Xcode_14.1"
-            runsOn: macOS-12
-            name: "macOS 12, Xcode 14.1, Swift 5.7.1"
-            testPlan: "macOS"
-            outputFilter: xcpretty
+          # - xcode: "Xcode_14.1"
+          #   runsOn: macOS-12
+          #   name: "macOS 12, Xcode 14.1, Swift 5.7.1"
+          #   testPlan: "macOS"
+          #   outputFilter: xcpretty
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
         run: |-
           set -o pipefail
-          brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk
-          firewalk &
+          # brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk
+          # firewalk &
           env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-macOS" -destination "platform=macOS" -testPlan "${{ matrix.testPlan }}" clean test | ${{ matrix.outputFilter }}
     needs: swiftlint
   # Catalyst:
@@ -112,10 +113,10 @@ jobs:
   #       include:
   #         - xcode: "Xcode_15.4"
   #           name: "Catalyst 15.4"
-  #           runsOn: firebreak
+  #           runsOn: macos-14
   #         - xcode: "Xcode_15.2"
   #           name: "Catalyst 15.2"
-  #           runsOn: firebreak
+  #           runsOn: macos-14
   #         - xcode: "Xcode_15.1"
   #           name: "Catalyst 15.1"
   #           runsOn: macOS-14
@@ -142,20 +143,20 @@ jobs:
       matrix:
         include:
           - destination: "OS=17.5,name=iPhone 15 Pro"
-            name: "iOS 17.5"
+            name: "iOS 17.6"
             testPlan: "iOS"
             xcode: "Xcode_15.4"
-            runsOn: firebreak
-          - destination: "OS=17.2,name=iPhone 15 Pro"
-            name: "iOS 17.2"
-            testPlan: "iOS"
-            xcode: "Xcode_15.2"
-            runsOn: firebreak
+            runsOn: macos-14
+          # - destination: "OS=17.2,name=iPhone 15 Pro"
+          #   name: "iOS 17.2"
+          #   testPlan: "iOS"
+          #   xcode: "Xcode_15.2"
+          #   runsOn: macos-14
           - destination: "OS=17.0,name=iPhone 15 Pro"
-            name: "iOS 17.0"
-            testPlan: "iOS"
-            xcode: "Xcode_15.0.1"
-            runsOn: macOS-14
+            # name: "iOS 17.0"
+            # testPlan: "iOS"
+            # xcode: "Xcode_15.0.1"
+            # runsOn: macOS-14
           - destination: "OS=16.4,name=iPhone 14 Pro"
             name: "iOS 16.4"
             testPlan: "iOS"
@@ -163,8 +164,8 @@ jobs:
             runsOn: macOS-13
     steps:
       - uses: actions/checkout@v4
-      - name: Install Firewalk
-        run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk && firewalk &
+      # - name: Install Firewalk
+      #   run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk && firewalk &
       - name: ${{ matrix.name }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: swiftlint
@@ -182,17 +183,17 @@ jobs:
             name: "tvOS 17.5"
             testPlan: "tvOS"
             xcode: "Xcode_15.4"
-            runsOn: firebreak
-          - destination: "OS=17.2,name=Apple TV"
-            name: "tvOS 17.2"
-            testPlan: "tvOS"
-            xcode: "Xcode_15.2"
-            runsOn: firebreak
-          - destination: "OS=17.0,name=Apple TV"
-            name: "tvOS 17.0"
-            testPlan: "tvOS"
-            xcode: "Xcode_15.0.1"
-            runsOn: macOS-14
+            runsOn: macos-14
+          # - destination: "OS=17.2,name=Apple TV"
+          #   name: "tvOS 17.2"
+          #   testPlan: "tvOS"
+          #   xcode: "Xcode_15.2"
+          #   runsOn: macos-14
+          # - destination: "OS=17.0,name=Apple TV"
+          #   name: "tvOS 17.0"
+          #   testPlan: "tvOS"
+          #   xcode: "Xcode_15.0.1"
+          #   runsOn: macOS-14
           - destination: "OS=16.4,name=Apple TV"
             name: "tvOS 16.4"
             testPlan: "tvOS"
@@ -200,8 +201,8 @@ jobs:
             runsOn: macOS-13
     steps:
       - uses: actions/checkout@v4
-      - name: Install Firewalk
-        run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk && firewalk &
+      # - name: Install Firewalk
+      #   run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk && firewalk &
       - name: ${{ matrix.name }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-tvOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: swiftlint
@@ -220,13 +221,13 @@ jobs:
   #           testPlan: "visionOS"
   #           scheme: "Punycode visionOS"
   #           xcode: "Xcode_15.4"
-  #           runsOn: firebreak
+  #           runsOn: macos-14
   #         - destination: "OS=1.0,name=Apple Vision Pro"
   #           name: "visionOS 1.0"
   #           testPlan: "visionOS"
   #           scheme: "Punycode visionOS"
   #           xcode: "Xcode_15.2"
-  #           runsOn: firebreak
+  #           runsOn: macos-14
   #   steps:
   #     - uses: actions/checkout@v4
   #     - name: Install Firewalk
@@ -247,12 +248,12 @@ jobs:
   #           name: "watchOS 10.5"
   #           testPlan: "watchOS"
   #           xcode: "Xcode_15.4"
-  #           runsOn: firebreak
+  #           runsOn: macos-14
   #         - destination: "OS=10.2,name=Apple Watch Series 9 (45mm)"
   #           name: "watchOS 10.2"
   #           testPlan: "watchOS"
   #           xcode: "Xcode_15.2"
-  #           runsOn: firebreak
+  #           runsOn: macos-14
   #         - destination: "OS=10.0,name=Apple Watch Series 9 (45mm)"
   #           name: "watchOS 10.0"
   #           testPlan: "watchOS"
@@ -287,14 +288,14 @@ jobs:
             runsOn: macOS-14
             name: "macOS 14, SPM 5.9.2 Test"
             outputFilter: xcbeautify --renderer github-actions
-          - xcode: "Xcode_15.1"
-            runsOn: macOS-14
-            name: "macOS 14, SPM 5.9.1 Test"
-            outputFilter: xcbeautify --renderer github-actions
-          - xcode: "Xcode_15.0.1"
-            runsOn: macOS-14
-            name: "macOS 14, SPM 5.9.0 Test"
-            outputFilter: xcbeautify --renderer github-actions
+          # - xcode: "Xcode_15.1"
+          #   runsOn: macOS-14
+          #   name: "macOS 14, SPM 5.9.1 Test"
+          #   outputFilter: xcbeautify --renderer github-actions
+          # - xcode: "Xcode_15.0.1"
+          #   runsOn: macOS-14
+          #   name: "macOS 14, SPM 5.9.0 Test"
+          #   outputFilter: xcbeautify --renderer github-actions
           - xcode: "Xcode_14.3.1"
             runsOn: macOS-13
             name: "macOS 13, SPM 5.8.0 Test"
@@ -303,14 +304,14 @@ jobs:
             runsOn: macOS-12
             name: "macOS 12, SPM 5.7.2 Test"
             outputFilter: xcpretty
-          - xcode: "Xcode_14.1"
-            runsOn: macOS-12
-            name: "macOS 12, SPM 5.7.1 Test"
-            outputFilter: xcpretty
+          # - xcode: "Xcode_14.1"
+          #   runsOn: macOS-12
+          #   name: "macOS 12, SPM 5.7.1 Test"
+          #   outputFilter: xcpretty
     steps:
       - uses: actions/checkout@v4
-      - name: Install Firewalk
-        run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk xcbeautify && firewalk &
+      # - name: Install Firewalk
+      #   run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk xcbeautify && firewalk &
       - name: Test SPM
         run: swift test -c debug 2>&1 | ${{ matrix.outputFilter }}
     needs: swiftlint
