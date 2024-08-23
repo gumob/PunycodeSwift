@@ -2,7 +2,8 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/gumob/PunycodeSwift)
 [![Cocoapods Version](https://img.shields.io/cocoapods/v/Punycode.svg)](https://cocoapods.org/pods/Punycode)
 [![Cocoapods Platform](https://img.shields.io/cocoapods/p/Punycode.svg)](https://cocoadocs.org/docsets/Punycode)
-[![Build Status](https://travis-ci.com/gumob/PunycodeSwift.svg?branch=master)](https://travis-ci.com/gumob/PunycodeSwift)
+[![Build](https://github.com/gumob/PunycodeSwift/actions/workflows/main.yml/badge.svg)](https://github.com/gumob/PunycodeSwift/actions/workflows/main.yml)
+<!-- [![Build Status](https://travis-ci.com/gumob/PunycodeSwift.svg?branch=master)](https://travis-ci.com/gumob/PunycodeSwift) -->
 [![codecov](https://codecov.io/gh/gumob/PunycodeSwift/branch/master/graph/badge.svg)](https://codecov.io/gh/gumob/PunycodeSwift)
 ![Language](https://img.shields.io/badge/Language-Swift%205.0-orange.svg)
 ![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)
