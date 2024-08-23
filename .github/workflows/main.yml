@@ -35,7 +35,7 @@ concurrency:
 
 jobs:
   swiftlint:
-    runs-on: ghcr.io/cirruslabs/macos-runner:sonoma
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
       - uses: sinoru/actions-setup-swift@v2
