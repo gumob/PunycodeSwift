@@ -62,9 +62,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build
-        run: swift build
+        run: swift build --disable-sandbox
       - name: Run tests
-        run: swift test
+        run: swift test --disable-sandbox
     needs: swiftlint
 
   carthage:
