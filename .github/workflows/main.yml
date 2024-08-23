@@ -152,11 +152,11 @@ jobs:
           #   testPlan: "iOS"
           #   xcode: "Xcode_15.2"
           #   runsOn: macos-14
-          - destination: "OS=17.0,name=iPhone 15 Pro"
-            # name: "iOS 17.0"
-            # testPlan: "iOS"
-            # xcode: "Xcode_15.0.1"
-            # runsOn: macOS-14
+          # - destination: "OS=17.0,name=iPhone 15 Pro"
+          #   name: "iOS 17.0"
+          #   testPlan: "iOS"
+          #   xcode: "Xcode_15.0.1"
+          #   runsOn: macOS-14
           - destination: "OS=16.4,name=iPhone 14 Pro"
             name: "iOS 16.4"
             testPlan: "iOS"
