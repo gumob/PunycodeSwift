@@ -38,6 +38,8 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
+      - name: Install SwiftLint
+        run: brew install swiftlint
       - name: Lint
         run: |
           set -o pipefail
