@@ -10,6 +10,18 @@
 		A77CE44C21A29F90009AFD9B /* Punycode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77CE44B21A29F90009AFD9B /* Punycode.swift */; };
 		A77CE44D21A29F90009AFD9B /* Punycode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77CE44B21A29F90009AFD9B /* Punycode.swift */; };
 		A77CE44E21A29F90009AFD9B /* Punycode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77CE44B21A29F90009AFD9B /* Punycode.swift */; };
+		A79A97282C78CF220079CCA8 /* Punycode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79A97202C78CF210079CCA8 /* Punycode.framework */; };
+		A79A97422C78CF940079CCA8 /* Punycode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79A973A2C78CF930079CCA8 /* Punycode.framework */; };
+		A79A974F2C78D0040079CCA8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE29101B196631B97D29A /* Extensions.swift */; };
+		A79A97502C78D0060079CCA8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABED31BB1FF40D654368A4 /* Helpers.swift */; };
+		A79A97512C78D0080079CCA8 /* Punycode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77CE44B21A29F90009AFD9B /* Punycode.swift */; };
+		A79A97522C78D01B0079CCA8 /* Punycode.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A14326219F00CA003FB96A /* Punycode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A79A97532C78D02B0079CCA8 /* Punycode.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A14326219F00CA003FB96A /* Punycode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A79A97542C78D0300079CCA8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABE29101B196631B97D29A /* Extensions.swift */; };
+		A79A97552C78D0320079CCA8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFABED31BB1FF40D654368A4 /* Helpers.swift */; };
+		A79A97562C78D0340079CCA8 /* Punycode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77CE44B21A29F90009AFD9B /* Punycode.swift */; };
+		A79A97572C78D13A0079CCA8 /* PunycodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A14318219F0075003FB96A /* PunycodeTests.swift */; };
+		A79A97582C78D13F0079CCA8 /* PunycodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A14318219F0075003FB96A /* PunycodeTests.swift */; };
 		A7A0ECE7219EB279004FBE05 /* Punycode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A0ECDD219EB279004FBE05 /* Punycode.framework */; };
 		A7A0ED3A219EC0FD004FBE05 /* Punycode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A0ED14219EB6C8004FBE05 /* Punycode.framework */; };
 		A7A0ED65219EC8D1004FBE05 /* Punycode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A0ED42219EC3E3004FBE05 /* Punycode.framework */; };
@@ -28,6 +40,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A79A97292C78CF220079CCA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7A0ECD4219EB279004FBE05 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A79A971F2C78CF210079CCA8;
+			remoteInfo = "Punycode-watchOS";
+		};
+		A79A97432C78CF940079CCA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7A0ECD4219EB279004FBE05 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A79A97392C78CF930079CCA8;
+			remoteInfo = "Punycode-visionOS";
+		};
 		A7A0ECE8219EB279004FBE05 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A7A0ECD4219EB279004FBE05 /* Project object */;
@@ -53,6 +79,10 @@
 
 /* Begin PBXFileReference section */
 		A77CE44B21A29F90009AFD9B /* Punycode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Punycode.swift; sourceTree = "<group>"; };
+		A79A97202C78CF210079CCA8 /* Punycode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Punycode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A79A97272C78CF220079CCA8 /* Punycode-watchOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Punycode-watchOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A79A973A2C78CF930079CCA8 /* Punycode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Punycode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A79A97412C78CF940079CCA8 /* Punycode-visionOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Punycode-visionOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A0ECDD219EB279004FBE05 /* Punycode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Punycode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A0ECE6219EB279004FBE05 /* Punycode-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Punycode-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A0ED14219EB6C8004FBE05 /* Punycode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Punycode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +98,36 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A79A971D2C78CF210079CCA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A97242C78CF220079CCA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A97282C78CF220079CCA8 /* Punycode.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A97372C78CF930079CCA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A973E2C78CF940079CCA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A97422C78CF940079CCA8 /* Punycode.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7A0ECDA219EB279004FBE05 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -134,6 +194,10 @@
 				A7A0ED1C219EB6C9004FBE05 /* Punycode-macOSTests.xctest */,
 				A7A0ED42219EC3E3004FBE05 /* Punycode.framework */,
 				A7A0ED4A219EC3E3004FBE05 /* Punycode-tvOSTests.xctest */,
+				A79A97202C78CF210079CCA8 /* Punycode.framework */,
+				A79A97272C78CF220079CCA8 /* Punycode-watchOSTests.xctest */,
+				A79A973A2C78CF930079CCA8 /* Punycode.framework */,
+				A79A97412C78CF940079CCA8 /* Punycode-visionOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -162,6 +226,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		A79A971B2C78CF210079CCA8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A97522C78D01B0079CCA8 /* Punycode.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A97352C78CF930079CCA8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A97532C78D02B0079CCA8 /* Punycode.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7A0ECD8219EB279004FBE05 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -189,6 +269,78 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		A79A971F2C78CF210079CCA8 /* Punycode-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A79A972F2C78CF220079CCA8 /* Build configuration list for PBXNativeTarget "Punycode-watchOS" */;
+			buildPhases = (
+				A79A971B2C78CF210079CCA8 /* Headers */,
+				A79A971C2C78CF210079CCA8 /* Sources */,
+				A79A971D2C78CF210079CCA8 /* Frameworks */,
+				A79A971E2C78CF210079CCA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Punycode-watchOS";
+			productName = "Punycode-watchOS";
+			productReference = A79A97202C78CF210079CCA8 /* Punycode.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A79A97262C78CF220079CCA8 /* Punycode-watchOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A79A97322C78CF220079CCA8 /* Build configuration list for PBXNativeTarget "Punycode-watchOSTests" */;
+			buildPhases = (
+				A79A97232C78CF220079CCA8 /* Sources */,
+				A79A97242C78CF220079CCA8 /* Frameworks */,
+				A79A97252C78CF220079CCA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A79A972A2C78CF220079CCA8 /* PBXTargetDependency */,
+			);
+			name = "Punycode-watchOSTests";
+			productName = "Punycode-watchOSTests";
+			productReference = A79A97272C78CF220079CCA8 /* Punycode-watchOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A79A97392C78CF930079CCA8 /* Punycode-visionOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A79A97492C78CF940079CCA8 /* Build configuration list for PBXNativeTarget "Punycode-visionOS" */;
+			buildPhases = (
+				A79A97352C78CF930079CCA8 /* Headers */,
+				A79A97362C78CF930079CCA8 /* Sources */,
+				A79A97372C78CF930079CCA8 /* Frameworks */,
+				A79A97382C78CF930079CCA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Punycode-visionOS";
+			productName = "Punycode-visionOS";
+			productReference = A79A973A2C78CF930079CCA8 /* Punycode.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A79A97402C78CF940079CCA8 /* Punycode-visionOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A79A974C2C78CF940079CCA8 /* Build configuration list for PBXNativeTarget "Punycode-visionOSTests" */;
+			buildPhases = (
+				A79A973D2C78CF940079CCA8 /* Sources */,
+				A79A973E2C78CF940079CCA8 /* Frameworks */,
+				A79A973F2C78CF940079CCA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A79A97442C78CF940079CCA8 /* PBXTargetDependency */,
+			);
+			name = "Punycode-visionOSTests";
+			productName = "Punycode-visionOSTests";
+			productReference = A79A97412C78CF940079CCA8 /* Punycode-visionOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A7A0ECDC219EB279004FBE05 /* Punycode-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7A0ECF1219EB279004FBE05 /* Build configuration list for PBXNativeTarget "Punycode-iOS" */;
@@ -304,10 +456,22 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = Gumob;
 				TargetAttributes = {
+					A79A971F2C78CF210079CCA8 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					A79A97262C78CF220079CCA8 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					A79A97392C78CF930079CCA8 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					A79A97402C78CF940079CCA8 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					A7A0ECDC219EB279004FBE05 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
@@ -345,17 +509,49 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A7A0ECDC219EB279004FBE05 /* Punycode-iOS */,
-				A7A0ECE5219EB279004FBE05 /* Punycode-iOSTests */,
 				A7A0ED13219EB6C8004FBE05 /* Punycode-macOS */,
 				A7A0ED1B219EB6C9004FBE05 /* Punycode-macOSTests */,
+				A7A0ECDC219EB279004FBE05 /* Punycode-iOS */,
+				A7A0ECE5219EB279004FBE05 /* Punycode-iOSTests */,
 				A7A0ED41219EC3E3004FBE05 /* Punycode-tvOS */,
 				A7A0ED49219EC3E3004FBE05 /* Punycode-tvOSTests */,
+				A79A971F2C78CF210079CCA8 /* Punycode-watchOS */,
+				A79A97262C78CF220079CCA8 /* Punycode-watchOSTests */,
+				A79A97392C78CF930079CCA8 /* Punycode-visionOS */,
+				A79A97402C78CF940079CCA8 /* Punycode-visionOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A79A971E2C78CF210079CCA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A97252C78CF220079CCA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A97382C78CF930079CCA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A973F2C78CF940079CCA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7A0ECDB219EB279004FBE05 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -401,6 +597,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A79A971C2C78CF210079CCA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A974F2C78D0040079CCA8 /* Extensions.swift in Sources */,
+				A79A97502C78D0060079CCA8 /* Helpers.swift in Sources */,
+				A79A97512C78D0080079CCA8 /* Punycode.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A97232C78CF220079CCA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A97572C78D13A0079CCA8 /* PunycodeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A97362C78CF930079CCA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A97542C78D0300079CCA8 /* Extensions.swift in Sources */,
+				A79A97552C78D0320079CCA8 /* Helpers.swift in Sources */,
+				A79A97562C78D0340079CCA8 /* Punycode.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79A973D2C78CF940079CCA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A97582C78D13F0079CCA8 /* PunycodeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7A0ECD9219EB279004FBE05 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -458,6 +690,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A79A972A2C78CF220079CCA8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A79A971F2C78CF210079CCA8 /* Punycode-watchOS */;
+			targetProxy = A79A97292C78CF220079CCA8 /* PBXContainerItemProxy */;
+		};
+		A79A97442C78CF940079CCA8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A79A97392C78CF930079CCA8 /* Punycode-visionOS */;
+			targetProxy = A79A97432C78CF940079CCA8 /* PBXContainerItemProxy */;
+		};
 		A7A0ECE9219EB279004FBE05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A7A0ECDC219EB279004FBE05 /* Punycode-iOS */;
@@ -476,6 +718,290 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		A79A97302C78CF220079CCA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gumob.Punycode;
+				PRODUCT_NAME = "$(PROJECT_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		A79A97312C78CF220079CCA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gumob.Punycode;
+				PRODUCT_NAME = "$(PROJECT_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
+		A79A97332C78CF220079CCA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gumob.Punycode-watchOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		A79A97342C78CF220079CCA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gumob.Punycode-watchOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
+		A79A974A2C78CF940079CCA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gumob.Punycode;
+				PRODUCT_NAME = "$(PROJECT_NAME:c99extidentifier)";
+				SDKROOT = xros;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		A79A974B2C78CF940079CCA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gumob.Punycode;
+				PRODUCT_NAME = "$(PROJECT_NAME:c99extidentifier)";
+				SDKROOT = xros;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
+		A79A974D2C78CF940079CCA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gumob.Punycode-visionOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
+		A79A974E2C78CF940079CCA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gumob.Punycode-visionOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Release;
+		};
 		A7A0ECEF219EB279004FBE05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -635,6 +1161,8 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -668,6 +1196,8 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
@@ -695,6 +1225,8 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -721,6 +1253,8 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
@@ -757,6 +1291,8 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -792,6 +1328,8 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
@@ -818,6 +1356,8 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -844,6 +1384,8 @@
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
@@ -878,6 +1420,8 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -911,6 +1455,8 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
@@ -936,6 +1482,8 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Debug;
 		};
@@ -960,12 +1508,50 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 12.0;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A79A972F2C78CF220079CCA8 /* Build configuration list for PBXNativeTarget "Punycode-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79A97302C78CF220079CCA8 /* Debug */,
+				A79A97312C78CF220079CCA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A79A97322C78CF220079CCA8 /* Build configuration list for PBXNativeTarget "Punycode-watchOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79A97332C78CF220079CCA8 /* Debug */,
+				A79A97342C78CF220079CCA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A79A97492C78CF940079CCA8 /* Build configuration list for PBXNativeTarget "Punycode-visionOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79A974A2C78CF940079CCA8 /* Debug */,
+				A79A974B2C78CF940079CCA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A79A974C2C78CF940079CCA8 /* Build configuration list for PBXNativeTarget "Punycode-visionOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79A974D2C78CF940079CCA8 /* Debug */,
+				A79A974E2C78CF940079CCA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A7A0ECD7219EB279004FBE05 /* Build configuration list for PBXProject "Punycode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
