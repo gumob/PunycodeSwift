@@ -103,7 +103,7 @@ jobs:
           set -o pipefail
           # brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk
           # firewalk &
-          env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-macOS" -destination "platform=macOS" -testPlan "${{ matrix.testPlan }}" clean test | ${{ matrix.outputFilter }}
+          env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-macOS" -destination "platform=macOS" clean test | ${{ matrix.outputFilter }}
     needs: swiftlint
   # Catalyst:
   #   name: ${{ matrix.name }}
@@ -171,7 +171,7 @@ jobs:
       # - name: Install Firewalk
       #   run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk && firewalk &
       - name: ${{ matrix.name }}
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test 2>&1 | xcbeautify --renderer github-actions
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: swiftlint
   tvOS:
     name: ${{ matrix.name }}
@@ -208,7 +208,7 @@ jobs:
       # - name: Install Firewalk
       #   run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk && firewalk &
       - name: ${{ matrix.name }}
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-tvOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test 2>&1 | xcbeautify --renderer github-actions
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-tvOS" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: swiftlint
   # visionOS:
   #   name: ${{ matrix.name }}
@@ -237,7 +237,7 @@ jobs:
   #     - name: Install Firewalk
   #       run: brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk && firewalk &
   #     - name: ${{ matrix.name }}
-  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test 2>&1 | xcbeautify --renderer github-actions
+  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
   # watchOS:
   #   name: ${{ matrix.name }}
   #   runs-on: ${{ matrix.runsOn }}
@@ -273,7 +273,7 @@ jobs:
   #     - name: Install Firewalk
   #       run: brew update && brew install alamofire/alamofire/firewalk || brew upgrade alamofire/alamofire/firewalk && firewalk &
   #     - name: ${{ matrix.name }}
-  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-watchOS" -destination "${{ matrix.destination }}" -testPlan "${{ matrix.testPlan }}" clean test 2>&1 | xcbeautify --renderer github-actions
+  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-watchOS" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
   SPM:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.runsOn }}
