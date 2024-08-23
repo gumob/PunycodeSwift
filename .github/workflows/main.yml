@@ -5,11 +5,11 @@ name: main
 
 on:
   push:
-    # branches:
-    #   - develop
-    branches-ignore:
-      - "release/**"
-      - "feature/**"
+    branches:
+      - develop
+    # branches-ignore:
+    #   - "release/**"
+    #   - "feature/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -19,11 +19,11 @@ on:
       - Source/**
       - Tests/**
   pull_request:
-    # branches:
-    #   - develop
-    branches-ignore:
-      - "release/**"
-      - "feature/**"
+    branches:
+      - develop
+    # branches-ignore:
+    #   - "release/**"
+    #   - "feature/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -50,7 +50,7 @@ jobs:
         run: |
           set -o pipefail
           swiftlint lint --quiet | sed -E 's/^(.*):([0-9]+):([0-9]+): (warning|error|[^:]+): (.*)/::\4 title=Lint error,file=\1,line=\2,col=\3::\5\n\1:\2:\3/'
-  
+
   ### ref: https://github.com/Alamofire/Alamofire/blob/master/.github/workflows/ci.yml
   test_macOS:
     name: ${{ matrix.name }}
@@ -88,6 +88,7 @@ jobs:
         run: |-
           set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-macOS" -destination "platform=macOS" clean test | ${{ matrix.outputFilter }}
     needs: swiftlint
+
   # test_Catalyst:
   #   name: ${{ matrix.name }}
   #   runs-on: ${{ matrix.runsOn }}
@@ -108,6 +109,7 @@ jobs:
   #     - uses: actions/checkout@v4
   #     - name: Catalyst
   #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "platform=macOS" clean test 2>&1 | xcbeautify --renderer github-actions
+
   test_iOS:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.runsOn }}
@@ -133,6 +135,7 @@ jobs:
       - name: ${{ matrix.name }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: swiftlint
+
   test_tvOS:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.runsOn }}
@@ -158,6 +161,7 @@ jobs:
       - name: ${{ matrix.name }}
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-tvOS" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: swiftlint
+
   # test_visionOS:
   #   name: ${{ matrix.name }}
   #   runs-on: ${{ matrix.runsOn }}
@@ -171,13 +175,14 @@ jobs:
   #         - destination: "OS=1.2,name=Apple Vision Pro"
   #           name: "Test: visionOS 1.2"
   #           testPlan: "visionOS"
-  #           scheme: "Punycode visionOS"
+  #           scheme: "Punycode-visionOS"
   #           xcode: "Xcode_15.4"
   #           runsOn: macos-14
   #   steps:
   #     - uses: actions/checkout@v4
   #     - name: ${{ matrix.name }}
   #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+
   # test_watchOS:
   #   name: ${{ matrix.name }}
   #   runs-on: ${{ matrix.runsOn }}
@@ -256,25 +261,22 @@ jobs:
 
   cocoapods:
     runs-on: macos-14
+    name: "Pods: ${{ matrix.platform }}, ${{ matrix.configuration }}"
     strategy:
       fail-fast: true
       matrix:
-        ### watchOS fails linting when there are test, wedge in --skip-tests for those runs.
         scheme: ["Punycode-iOS", "Punycode-macOS", "Punycode-tvOS"]
         # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
         platform: ["ios", "macos", "tvos"]
         configuration: ["Debug", "Release"]
     steps:
-      ### The "macos-14" image defaults to 15.0.1, select the newer Xcode.
       - name: Xcode version
         run: sudo xcode-select -switch /Applications/Xcode_15.4.app
-      ### The "macos-14" image has CocoaPods 1.14.x, and 1.15 is needed for visionOS
       - name: Update CocoaPods
         if: ${{ matrix.platform == 'visionos' }}
         run: gem install cocoapods
       - name: Checkout
         uses: actions/checkout@v4
-      ### Manually expanding out static frameworks to avoid making to many jobs.
       - name: Pod lib lint
         run: |
           pod lib lint --verbose \
