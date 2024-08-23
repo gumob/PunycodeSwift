@@ -38,11 +38,10 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
-      - uses: sinoru/actions-setup-swift@v2
-        with:
-          swift-version: '5.10.1'
-      - name: GitHub Actions for SwiftLint
-        uses: sinoru/actions-swiftlint@v6
+      - name: Lint
+        run: |
+          set -o pipefail
+          swiftlint lint --quiet | sed -E 's/^(.*):([0-9]+):([0-9]+): (warning|error|[^:]+): (.*)/::\4 title=Lint error,file=\1,line=\2,col=\3::\5\n\1:\2:\3/'
 
   spm:
     name: Swift ${{ matrix.swift }}
@@ -114,6 +113,35 @@ jobs:
             --platforms=${{ matrix.platform }} \
             Punycode.podspec
     needs: carthage
+  
+  # test:
+  #   runs-on: macos-14
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       scheme: ["Punycode-iOS", "Punycode-macOS", "Punycode-tvOS"]
+  #       destination:
+  #         - "OS=iOS 18.1,name=iphonesimulator18.1"
+  #         - "OS=iOS 17.5,name=iphonesimulator17.5"
+  #         - "OS=iOS 16.4,name=iphonesimulator16.4"
+  #         - "OS=tvOS 18.0,name=appletvsimulator18.0"
+  #         - "OS=tvOS 17.5,name=appletvsimulator17.5"
+  #         - "OS=tvOS 16.4,name=appletvsimulator16.4"
+  #         - "OS=macOS 15.1,name=macosx15.1"
+  #         - "OS=macOS 14.5,name=macosx14.5"
+  #         - "OS=macOS 13.3,name=macosx13.3"
+  #         - "arch=x86_64"
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Run tests
+  #       run: |
+  #         xcodebuild clean test -project "Punycode.xcodeproj" \
+  #           -scheme ${{ matrix.scheme }} \
+  #           -destination ${{ matrix.destination }} \
+  #           -enableCodeCoverage
+  #   needs: cocoapods
+
 
   # build:
   #   name: ${{ matrix.run-config.scheme }}
@@ -121,27 +149,6 @@ jobs:
 
   #   strategy:
   #     matrix:
-  #       destination:
-  #         - "platform=macOS, arch=arm64, id=0000FE00-392BB8A41C01F642"
-  #         - "platform=iOS Simulator, OS=18.1, name=iPhone 14"
-  #         - "platform=tvOS Simulator, OS=18.0, name=Apple TV"
-  #       run-config:
-  #         - {
-  #             scheme: "Punycode-iOS",
-  #             sdk: "iphonesimulator",
-  #             destination: "platform=iOS Simulator,OS=latest,name=iPhone 14",
-  #           }
-  #         - {
-  #             scheme: "Punycode-tvOS",
-  #             sdk: "appletvsimulator",
-  #             destination: "platform=tvOS Simulator,OS=latest,name=Apple TV",
-  #           }
-  #         - {
-  #             scheme: "Punycode-macOS",
-  #             sdk: "watchsimulator",
-  #             destination: "platform=watchOS Simulator,OS=latest,name=Apple Watch Series 6 (44mm)",
-  #           }
-
   #       scheme:
   #         - Punycode-iOS
   #         - Punycode-tvOS
@@ -158,20 +165,6 @@ jobs:
   #       #   - "OS=macOS 13.3,name=macosx13.3"
   #       # - "arch=x86_64"
 
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-
-  #     - name: Install dependencies
-  #       run: |
-  #         brew update
-  #         brew install cocoapods
-  #         brew upgrade carthage
-  #         pod repo update
-
-  #     - name: Install SwiftLint
-  #       run: ./install-swiftlint.sh
-
   #     - name: Build and Test
   #       run: |
   #         set -o pipefail
@@ -181,12 +174,6 @@ jobs:
   #         xcodebuild -showsdks
   #         xcodebuild -list
   #         xcodebuild clean test -project "Punycode.xcodeproj" -scheme ${{ matrix.scheme }} -destination ${{ matrix.destination }} -enableCodeCoverage
-
-  #     - name: Lint
-  #       if: ${{ github.event_name == 'push' }}
-  #       run: |
-  #         swiftlint
-  #         carthage build --no-skip-current
 
   #     - name: Upload Coverage
   #       if: success() && github.event_name == 'push'
