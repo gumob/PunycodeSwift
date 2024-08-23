@@ -5,9 +5,11 @@ name: Swift
 
 on:
   push:
-    branches:
-      - develop
-      - "!release/*"
+    # branches:
+    #   - develop
+    branches-ignore:
+      - "release/**"
+      - "feature/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -17,9 +19,11 @@ on:
       - Source/**
       - Tests/**
   pull_request:
-    branches:
-      - develop
-      - "!release/*"
+    # branches:
+    #   - develop
+    branches-ignore:
+      - "release/**"
+      - "feature/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
