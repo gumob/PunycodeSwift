@@ -51,12 +51,30 @@ jobs:
         uses: swift-actions/setup-swift@v2
         with:
           swift-version: ${{ matrix.swift }}
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Build
         run: swift build
       - name: Run tests
         run: swift test
+    needs: swiftlint
+
+  carthage:
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
+        platform: ["ios", "macos", "tvos"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run SwiftLint and Build Carthage for ${{ matrix.platform }}
+        run: |
+          carthage build \
+            --no-skip-current \
+            --platform ${{ matrix.platform }} \
+            --use-xcframeworks \
+            --cache-builds
+    needs: spm
 
   cocoapods:
     runs-on: macos-14
@@ -91,24 +109,7 @@ jobs:
             --configuration=${{ matrix.configuration }} \
             --platforms=${{ matrix.platform }} \
             Punycode.podspec
-
-  carthage:
-    runs-on: macos-14
-    strategy:
-      fail-fast: false
-      matrix:
-        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
-        platform: ["ios", "macos", "tvos"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run SwiftLint and Build Carthage for ${{ matrix.platform }}
-        run: |
-          carthage build \
-            --no-skip-current \
-            --platform ${{ matrix.platform }} \
-            --use-xcframeworks \
-            --cache-builds
+    needs: carthage
 
   # build:
   #   name: ${{ matrix.run-config.scheme }}
