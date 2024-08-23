@@ -247,6 +247,7 @@ jobs:
       - name: Test SPM
         run: swift test -c debug 2>&1 | ${{ matrix.outputFilter }}
     needs: [test_macOS, test_iOS, test_tvOS]
+    # needs: [test_macOS, test_iOS, test_tvOS, test_visionOS, test_watchOS, test_Catalyst]
 
   carthage:
     runs-on: macos-14
