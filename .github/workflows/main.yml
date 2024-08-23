@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - develop
-      - "!release/**"
+      - "!release/*"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -19,7 +19,7 @@ on:
   pull_request:
     branches:
       - develop
-      - "!release/**"
+      - "!release/*"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
