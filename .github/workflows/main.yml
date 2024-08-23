@@ -10,6 +10,7 @@ on:
       - develop
     paths:
       - .github/workflows/**
+      - .swiftlint.yml
       - Package.swift
       - Punycode.podspec
       - Punycode.xcodeproj/**
@@ -21,6 +22,7 @@ on:
       - develop
     paths:
       - .github/workflows/**
+      - .swiftlint.yml
       - Package.swift
       - Punycode.podspec
       - Punycode.xcodeproj/**
@@ -36,9 +38,12 @@ jobs:
     runs-on: ghcr.io/cirruslabs/macos-runner:sonoma
     steps:
       - uses: actions/checkout@v4
-      - uses: cirruslabs/swiftlint-action@v1
-        with:
-          version: latest
+      # - name: GitHub Action for SwiftLint
+      #   uses: norio-nomura/action-swiftlint@3.2.1
+      - name: GitHub Action for SwiftLint (Only files changed in the PR)
+        uses: norio-nomura/action-swiftlint@3.2.1
+        env:
+          DIFF_BASE: ${{ github.base_ref }}
 
   spm:
     name: Swift ${{ matrix.swift }}
