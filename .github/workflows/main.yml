@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - develop
-      - "!release/**"
+      - "!release/*"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -19,7 +19,7 @@ on:
   pull_request:
     branches:
       - develop
-      - "!release/**"
+      - "!release/*"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -280,11 +280,11 @@ jobs:
       matrix:
         include:
           - xcode: "Xcode_15.4"
-            runsOn: firebreak
+            runsOn: macOS-14
             name: "macOS 14, SPM 5.10 Test"
             outputFilter: xcbeautify --renderer github-actions
           - xcode: "Xcode_15.2"
-            runsOn: firebreak
+            runsOn: macOS-14
             name: "macOS 14, SPM 5.9.2 Test"
             outputFilter: xcbeautify --renderer github-actions
           - xcode: "Xcode_15.1"
