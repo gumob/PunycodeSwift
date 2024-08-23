@@ -7,9 +7,12 @@ disabled_rules:
 line_length: 480
 function_body_length: 100
 
-included:
-  - Source/**/*.swift
-  - Tests/**/*.swift
+identifier_name:
+  excluded:
+    - id
+    - ok
 
 excluded:
-  - ./**
+  - Carthage
+  - Pods
+  - fastlane
