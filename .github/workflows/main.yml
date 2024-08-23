@@ -5,18 +5,148 @@ name: Swift
 
 on:
   push:
-    branches: [ "develop" ]
+    branches:
+      # - master
+      - develop
+    paths:
+      - .github/workflows/**
+      - Package.swift
+      - Punycode.podspec
+      - Punycode.xcodeproj/**
+      - Source/**
+      - Tests/**
   pull_request:
-    branches: [ "develop" ]
+    branches:
+      # - master
+      - develop
+    paths:
+      - .github/workflows/**
+      - Package.swift
+      - Punycode.podspec
+      - Punycode.xcodeproj/**
+      - Source/**
+      - Tests/**
 
 jobs:
-  build:
+  cocoapods:
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        ### watchOS fails linting when there are test, wedge in --skip-tests for those runs.
+        scheme: ["Punycode-iOS", "Punycode-macOS", "Punycode-tvOS"]
+        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
+        platform: ["ios", "macos", "tvos"]
+        configuration: ["Debug", "Release"]
+    steps:
+      ### The "macos-14" image defaults to 15.0.1, select the newer Xcode.
+      - name: Xcode version
+        run: sudo xcode-select -switch /Applications/Xcode_15.4.app
+      ### The "macos-14" image has CocoaPods 1.14.x, and 1.15 is needed for visionOS
+      - name: Update CocoaPods
+        if: ${{ matrix.platform == 'visionos' }}
+        run: gem install cocoapods
+      - uses: actions/checkout@v4
+      ### Manually expanding out static frameworks to avoid making to many jobs.
+      - name: Pod lib lint
+        run: |
+          pod lib lint --verbose \
+            --configuration=${{ matrix.configuration }} \
+            --platforms=${{ matrix.platform }} \
+            Punycode.podspec
+      - name: Pod lib lint - Use Static Frameworks
+        run: |
+          pod lib lint --verbose --use-static-frameworks \
+            --configuration=${{ matrix.configuration }} \
+            --platforms=${{ matrix.platform }} \
+            Punycode.podspec
 
-    runs-on: macos-latest
+  carthage:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 
+            Punycode.podspec
+
+  spm:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 
+
+  build:
+    name: ${{ matrix.run-config.scheme }}
+    runs-on: macos-14
+
+    strategy:
+      matrix:
+        destination:
+          - "platform=macOS, arch=arm64, id=0000FE00-392BB8A41C01F642"
+          - "platform=iOS Simulator, OS=18.1, name=iPhone 14"
+          - "platform=tvOS Simulator, OS=18.0, name=Apple TV"
+        run-config:
+          - {
+              scheme: "Punycode-iOS",
+              sdk: "iphonesimulator",
+              destination: "platform=iOS Simulator,OS=latest,name=iPhone 14",
+            }
+          - {
+              scheme: "Punycode-tvOS",
+              sdk: "appletvsimulator",
+              destination: "platform=tvOS Simulator,OS=latest,name=Apple TV",
+            }
+          - {
+              scheme: "Punycode-macOS",
+              sdk: "watchsimulator",
+              destination: "platform=watchOS Simulator,OS=latest,name=Apple Watch Series 6 (44mm)",
+            }
+
+        scheme:
+          - Punycode-iOS
+          - Punycode-tvOS
+          - Punycode-macOS
+        # destination:
+        #   - "OS=iOS 18.1,name=iphonesimulator18.1"
+        #   - "OS=iOS 17.5,name=iphonesimulator17.5"
+        #   - "OS=iOS 16.4,name=iphonesimulator16.4"
+        #   - "OS=tvOS 18.0,name=appletvsimulator18.0"
+        #   - "OS=tvOS 17.5,name=appletvsimulator17.5"
+        #   - "OS=tvOS 16.4,name=appletvsimulator16.4"
+        #   - "OS=macOS 15.1,name=macosx15.1"
+        #   - "OS=macOS 14.5,name=macosx14.5"
+        #   - "OS=macOS 13.3,name=macosx13.3"
+        # - "arch=x86_64"
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          brew update
+          brew install cocoapods
+          brew upgrade carthage
+          pod repo update
+
+      - name: Install SwiftLint
+        run: ./install-swiftlint.sh
+
+      - name: Build and Test
+        run: |
+          set -o pipefail
+          swift -version
+          xcrun simctl list
+          xcodebuild -version
+          xcodebuild -showsdks
+          xcodebuild -list
+          xcodebuild clean test -project "Punycode.xcodeproj" -scheme ${{ matrix.scheme }} -destination ${{ matrix.destination }} -enableCodeCoverage
+
+      - name: Lint
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          swiftlint
+          carthage build --no-skip-current
+
+      - name: Upload Coverage
+        if: success() && github.event_name == 'push'
+        run: bash <(curl -s https://codecov.io/bash) -J 'Punycode' -cF "${{ matrix.scheme }}"
