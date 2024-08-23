@@ -37,7 +37,8 @@ jobs:
   swiftlint:
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Install SwiftLint
         run: brew install swiftlint
       - name: Lint
@@ -56,6 +57,8 @@ jobs:
         uses: swift-actions/setup-swift@v2
         with:
           swift-version: ${{ matrix.swift }}
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build
         run: swift build
       - name: Run tests
