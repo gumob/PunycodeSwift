@@ -171,7 +171,7 @@ jobs:
   #         - destination: "OS=1.2,name=Apple Vision Pro"
   #           name: "Test: visionOS 1.2"
   #           testPlan: "visionOS"
-  #           scheme: "Punycode visionOS"
+  #           scheme: "Punycode-visionOS"
   #           xcode: "Xcode_15.4"
   #           runsOn: macos-14
   #   steps:
