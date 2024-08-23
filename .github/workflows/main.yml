@@ -4,23 +4,9 @@
 name: main
 
 on:
-  # push:
-  #   branches:
-  #     - develop
-  #   paths:
-  #     - .github/workflows/**
-  #     - .swiftlint.yml
-  #     - Package.swift
-  #     - Punycode.podspec
-  #     - Punycode.xcodeproj/**
-  #     - Source/**
-  #     - Tests/**
-  pull_request:
+  push:
     branches:
       - develop
-    # branches-ignore:
-    #   - "release/**"
-    #   - "feature/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -29,6 +15,20 @@ on:
       - Punycode.xcodeproj/**
       - Source/**
       - Tests/**
+  # pull_request:
+  #   branches:
+  #     - develop
+  #   # branches-ignore:
+  #   #   - "release/**"
+  #   #   - "feature/**"
+  #   paths:
+  #     - .github/workflows/**
+  #     - .swiftlint.yml
+  #     - Package.swift
+  #     - Punycode.podspec
+  #     - Punycode.xcodeproj/**
+  #     - Source/**
+  #     - Tests/**
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -64,26 +64,37 @@ jobs:
             name: "Test: macOS 14, Xcode 15.4, Swift 5.10"
             testPlan: "macOS"
             outputFilter: xcbeautify --renderer github-actions
+            coverage: YES
           - xcode: "Xcode_15.2"
             runsOn: macos-14
             name: "Test: macOS 14, Xcode 15.2, Swift 5.9.2"
             testPlan: "macOS"
             outputFilter: xcbeautify --renderer github-actions
+            coverage: NO
           - xcode: "Xcode_14.3.1"
             runsOn: macOS-13
             name: "Test: macOS 13, Xcode 14.3.1, Swift 5.8.0"
             testPlan: "macOS"
             outputFilter: xcbeautify --renderer github-actions
+            coverage: NO
           - xcode: "Xcode_14.2"
             runsOn: macOS-12
             name: "Test: macOS 12, Xcode 14.2, Swift 5.7.2"
             testPlan: "macOS"
             outputFilter: xcpretty
+            coverage: NO
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
         run: |-
-          set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-macOS" -destination "platform=macOS" clean test | ${{ matrix.outputFilter }}
+          set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-macOS" -destination "platform=macOS" -enableCodeCoverage ${{ matrix.coverage }} clean test | ${{ matrix.outputFilter }}
+      - name: Upload coverage to Codecov
+        if: ${{ matrix.coverage == 'YES' }}
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true
     needs: swiftlint
 
   # test_Catalyst:
