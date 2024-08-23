@@ -5,9 +5,11 @@ name: Swift
 
 on:
   push:
-    branches:
-      - develop
-      - "!release/*"
+    # branches:
+    #   - develop
+    branches-ignore:
+      - "release/**"
+      - "feature/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -17,9 +19,11 @@ on:
       - Source/**
       - Tests/**
   pull_request:
-    branches:
-      - develop
-      - "!release/*"
+    # branches:
+    #   - develop
+    branches-ignore:
+      - "release/**"
+      - "feature/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -152,11 +156,11 @@ jobs:
           #   testPlan: "iOS"
           #   xcode: "Xcode_15.2"
           #   runsOn: macos-14
-          - destination: "OS=17.0,name=iPhone 15 Pro"
-            # name: "iOS 17.0"
-            # testPlan: "iOS"
-            # xcode: "Xcode_15.0.1"
-            # runsOn: macOS-14
+          # - destination: "OS=17.0,name=iPhone 15 Pro"
+          #   name: "iOS 17.0"
+          #   testPlan: "iOS"
+          #   xcode: "Xcode_15.0.1"
+          #   runsOn: macOS-14
           - destination: "OS=16.4,name=iPhone 14 Pro"
             name: "iOS 16.4"
             testPlan: "iOS"
