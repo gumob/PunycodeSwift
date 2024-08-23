@@ -4,23 +4,9 @@
 name: main
 
 on:
-  # push:
-  #   branches:
-  #     - develop
-  #   paths:
-  #     - .github/workflows/**
-  #     - .swiftlint.yml
-  #     - Package.swift
-  #     - Punycode.podspec
-  #     - Punycode.xcodeproj/**
-  #     - Source/**
-  #     - Tests/**
-  pull_request:
+  push:
     branches:
       - develop
-    # branches-ignore:
-    #   - "release/**"
-    #   - "feature/**"
     paths:
       - .github/workflows/**
       - .swiftlint.yml
@@ -29,6 +15,20 @@ on:
       - Punycode.xcodeproj/**
       - Source/**
       - Tests/**
+  # pull_request:
+  #   branches:
+  #     - develop
+  #   # branches-ignore:
+  #   #   - "release/**"
+  #   #   - "feature/**"
+  #   paths:
+  #     - .github/workflows/**
+  #     - .swiftlint.yml
+  #     - Package.swift
+  #     - Punycode.podspec
+  #     - Punycode.xcodeproj/**
+  #     - Source/**
+  #     - Tests/**
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
