@@ -88,6 +88,13 @@ jobs:
       - name: ${{ matrix.name }}
         run: |-
           set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-macOS" -destination "platform=macOS" -enableCodeCoverage ${{ matrix.coverage }} clean test | ${{ matrix.outputFilter }}
+      - name: Upload coverage to Codecov
+        if: ${{ matrix.coverage == 'YES' }}
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true
     needs: swiftlint
 
   # test_Catalyst:
