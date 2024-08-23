@@ -10,6 +10,7 @@ on:
       - develop
     paths:
       - .github/workflows/**
+      - .swiftlint.yml
       - Package.swift
       - Punycode.podspec
       - Punycode.xcodeproj/**
@@ -21,6 +22,7 @@ on:
       - develop
     paths:
       - .github/workflows/**
+      - .swiftlint.yml
       - Package.swift
       - Punycode.podspec
       - Punycode.xcodeproj/**
@@ -36,27 +38,48 @@ jobs:
     runs-on: ghcr.io/cirruslabs/macos-runner:sonoma
     steps:
       - uses: actions/checkout@v4
-      - uses: cirruslabs/swiftlint-action@v1
-        with:
-          version: latest
+      # - name: GitHub Action for SwiftLint
+      #   uses: norio-nomura/action-swiftlint@3.2.1
+      - name: GitHub Action for SwiftLint (Only files changed in the PR)
+        uses: norio-nomura/action-swiftlint@3.2.1
+        env:
+          DIFF_BASE: ${{ github.base_ref }}
 
   spm:
     name: Swift ${{ matrix.swift }}
     runs-on: macos-14
     strategy:
       matrix:
-        swift: ["5.10.1", "5.9.2", "5.7.2", "5.0.1"]
+        swift: ["5.10", "5.9", "5.7", "5.0"]
     steps:
       - name: Setup Swift
         uses: swift-actions/setup-swift@v2
         with:
           swift-version: ${{ matrix.swift }}
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Build
         run: swift build
       - name: Run tests
         run: swift test
+    needs: swiftlint
+
+  carthage:
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
+        platform: ["ios", "macos", "tvos"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run SwiftLint and Build Carthage for ${{ matrix.platform }}
+        run: |
+          carthage build \
+            --no-skip-current \
+            --platform ${{ matrix.platform }} \
+            --use-xcframeworks \
+            --cache-builds
+    needs: spm
 
   cocoapods:
     runs-on: macos-14
@@ -91,24 +114,7 @@ jobs:
             --configuration=${{ matrix.configuration }} \
             --platforms=${{ matrix.platform }} \
             Punycode.podspec
-
-  carthage:
-    runs-on: macos-14
-    strategy:
-      fail-fast: false
-      matrix:
-        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
-        platform: ["ios", "macos", "tvos"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run SwiftLint and Build Carthage for ${{ matrix.platform }}
-        run: |
-          carthage build \
-            --no-skip-current \
-            --platform ${{ matrix.platform }} \
-            --use-xcframeworks \
-            --cache-builds
+    needs: carthage
 
   # build:
   #   name: ${{ matrix.run-config.scheme }}
