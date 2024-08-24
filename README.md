@@ -35,6 +35,7 @@ Add the following to your `Cartfile` and follow [these instructions](https://git
 
 ```Certfile
 github "gumob/PunycodeSwift"          # Latest (Swift 5.0)
+github "gumob/PunycodeSwift" ~> 3.0   # Swift 5.0
 github "gumob/PunycodeSwift" ~> 2.2   # Swift 5.0
 github "gumob/PunycodeSwift" ~> 1.0   # Swift 4.2
 ```
@@ -48,6 +49,7 @@ platform :ios, '12.0'
 use_frameworks!
 
 pod 'Punycode'             # Latest (Swift 5.0)
+pod 'Punycode', '~> 3.0'   # Swift 5.0
 pod 'Punycode', '~> 2.2'   # Swift 5.0
 pod 'Punycode', '~> 1.0'   # Swift 4.2
 ```
