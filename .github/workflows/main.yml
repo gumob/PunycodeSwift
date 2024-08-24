@@ -302,42 +302,52 @@ jobs:
       matrix:
         include:
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "macos"
             configuration: "Release"
             name: "Pods: macOS, Release"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "macos"
             configuration: "Debug"
             name: "Pods: macOS, Debug"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "ios"
             configuration: "Release"
             name: "Pods: iOS, Release"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "ios"
             configuration: "Debug"
             name: "Pods: iOS, Debug"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "tvos"
             configuration: "Release"
             name: "Pods: tvOS, Release"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "tvos"
             configuration: "Debug"
             name: "Pods: tvOS, Debug"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "watchos"
             configuration: "Release"
             name: "Pods: watchOS, Release"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "watchos"
             configuration: "Debug"
             name: "Pods: watchOS, Debug"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "visionos"
             configuration: "Release"
             name: "Pods: visionOS, Release"
           - xcode: "Xcode_15.4"
+            runsOn: macOS-14
             platform: "visionos"
             configuration: "Debug"
             name: "Pods: visionOS, Debug"
