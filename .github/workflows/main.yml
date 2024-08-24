@@ -97,26 +97,26 @@ jobs:
           verbose: true
     needs: swiftlint
 
-  # test_Catalyst:
-  #   name: ${{ matrix.name }}
-  #   runs-on: ${{ matrix.runsOn }}
-  #   env:
-  #     DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
-  #   timeout-minutes: 10
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       include:
-  #         - xcode: "Xcode_15.4"
-  #           name: "Test: Catalyst 15.4"
-  #           runsOn: macos-14
-  #         - xcode: "Test: Xcode_14.3.1"
-  #           name: "Catalyst 14.3.1"
-  #           runsOn: macOS-13
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Catalyst
-  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "platform=macOS" clean test 2>&1 | xcbeautify --renderer github-actions
+  test_Catalyst:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runsOn }}
+    env:
+      DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - xcode: "Xcode_15.4"
+            name: "Test: Catalyst 15.4"
+            runsOn: macos-14
+          - xcode: "Test: Xcode_14.3.1"
+            name: "Test: Catalyst 14.3.1"
+            runsOn: macOS-13
+    steps:
+      - uses: actions/checkout@v4
+      - name: Catalyst
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "platform=macOS" clean test 2>&1 | xcbeautify --renderer github-actions
 
   test_iOS:
     name: ${{ matrix.name }}
@@ -248,16 +248,37 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test SPM
         run: swift test -c debug 2>&1 | ${{ matrix.outputFilter }}
-    needs: [test_macOS, test_iOS, test_tvOS, test_watchOS, test_visionOS]
-    # needs: [test_macOS, test_iOS, test_tvOS, test_visionOS, test_watchOS, test_Catalyst]
+    needs: [test_macOS, test_Catalyst, test_iOS, test_tvOS, test_watchOS, test_visionOS]
 
   carthage:
-    runs-on: macos-14
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runsOn }}
+    env:
+      DEVELOPER_DIR: "/Applications/${{ matrix.xcode }}.app/Contents/Developer"
     strategy:
       fail-fast: true
       matrix:
-        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
-        platform: ["ios", "macos", "tvos"]
+        include:
+          - xcode: "Xcode_15.4"
+            runsOn: macOS-14
+            name: "Carthage: macOS"
+            platform: "macos"
+          - xcode: "Xcode_15.4"
+            runsOn: macOS-14
+            name: "Carthage: iOS"
+            platform: "ios"
+          - xcode: "Xcode_15.4"
+            runsOn: macOS-14
+            name: "Carthage: tvOS"
+            platform: "tvos"
+          - xcode: "Xcode_15.4"
+            runsOn: macOS-14
+            name: "Carthage: watchOS"
+            platform: "watchos --skip-tests"
+          - xcode: "Xcode_15.4"
+            runsOn: macOS-14
+            name: "Carthage: visionOS"
+            platform: "visionos"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -271,18 +292,55 @@ jobs:
     needs: SPM
 
   cocoapods:
-    runs-on: macos-14
     name: "Pods: ${{ matrix.platform }}, ${{ matrix.configuration }}"
+    runs-on: ${{ matrix.runsOn }}
+    env:
+      DEVELOPER_DIR: "/Applications/${{ matrix.xcode }}.app/Contents/Developer"
     strategy:
       fail-fast: true
       matrix:
-        scheme: ["Punycode-iOS", "Punycode-macOS", "Punycode-tvOS"]
-        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
-        platform: ["ios", "macos", "tvos"]
-        configuration: ["Debug", "Release"]
+        include:
+          - xcode: "Xcode_15.4"
+            platform: "macos"
+            configuration: "Release"
+            name: "Pods: macOS, Release"
+          - xcode: "Xcode_15.4"
+            platform: "macos"
+            configuration: "Debug"
+            name: "Pods: macOS, Debug"
+          - xcode: "Xcode_15.4"
+            platform: "ios"
+            configuration: "Release"
+            name: "Pods: iOS, Release"
+          - xcode: "Xcode_15.4"
+            platform: "ios"
+            configuration: "Debug"
+            name: "Pods: iOS, Debug"
+          - xcode: "Xcode_15.4"
+            platform: "tvos"
+            configuration: "Release"
+            name: "Pods: tvOS, Release"
+          - xcode: "Xcode_15.4"
+            platform: "tvos"
+            configuration: "Debug"
+            name: "Pods: tvOS, Debug"
+          - xcode: "Xcode_15.4"
+            platform: "watchos --skip-tests"
+            configuration: "Release"
+            name: "Pods: watchOS, Release"
+          - xcode: "Xcode_15.4"
+            platform: "watchos --skip-tests"
+            configuration: "Debug"
+            name: "Pods: watchOS, Debug"
+          - xcode: "Xcode_15.4"
+            platform: "visionos"
+            configuration: "Release"
+            name: "Pods: visionOS, Release"
+          - xcode: "Xcode_15.4"
+            platform: "visionos"
+            configuration: "Debug"
+            name: "Pods: visionOS, Debug"
     steps:
-      - name: Xcode version
-        run: sudo xcode-select -switch /Applications/Xcode_15.4.app
       - name: Update CocoaPods
         if: ${{ matrix.platform == 'visionos' }}
         run: gem install cocoapods
