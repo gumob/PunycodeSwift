@@ -73,7 +73,3 @@ fastlane/reports
 
 # Ruby
 .bundle
-.ruby-version
-
-# Python
-.python-version
