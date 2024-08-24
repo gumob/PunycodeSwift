@@ -16,6 +16,11 @@
 
 Punycode is a representation of Unicode with the limited ASCII character subset used for Internet host names. Using Punycode, host names containing Unicode characters are transcoded to a subset of ASCII consisting of letters, digits, and hyphen, which is called the Letter-Digit-Hyphen (LDH) subset. For example, München (German name for Munich) is encoded as Mnchen-3ya. [(Wikipedia)](https://en.wikipedia.org/wiki/Punycode)
 
+## Changes in 3.0.0
+
+- ❗The framework name has been changed from `Punycode` to `PunycodeSwift`. This change is based on the information provided in [this issue](https://github.com/swiftlang/swift/issues/56573), which discusses potential naming conflicts in Swift modules.
+- Added support for watchOS and visionOS
+
 ## Requirements
 
 - macOS 10.13 or later
