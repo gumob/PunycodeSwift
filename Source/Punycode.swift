@@ -5,6 +5,8 @@
 
 import Foundation
 
+/// FIXME: public class 'Punycode.Punycode' shadows module 'Punycode', which may cause failures when importing 'Punycode' or its clients in some configurations; please rename either the class 'Punycode.Punycode' or the module 'Punycode', or see https://github.com/apple/swift/issues/56573 for workarounds
+
 public class Punycode {
 
     /// Punycode RFC 3492
