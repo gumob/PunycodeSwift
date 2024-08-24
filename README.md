@@ -16,23 +16,6 @@
 
 Punycode is a representation of Unicode with the limited ASCII character subset used for Internet host names. Using Punycode, host names containing Unicode characters are transcoded to a subset of ASCII consisting of letters, digits, and hyphen, which is called the Letter-Digit-Hyphen (LDH) subset. For example, München (German name for Munich) is encoded as Mnchen-3ya. [(Wikipedia)](https://en.wikipedia.org/wiki/Punycode)
 
-## Changes in 3.0.0
-
-### Breaking Changes
-❗The framework name has been changed from ~~**`Punycode`**~~ to **`PunycodeSwift`**.
-This change is based on the information provided in [this issue](https://github.com/swiftlang/swift/issues/56573), which discusses potential naming conflicts in Swift modules.
-
-\* There are no changes to the framework's API, and it remains fully compatible with versions 2.x.x.
-
-### Other Changes
-- Updated macOS version from 10.12 to 10.13.
-- Updated iOS version from 9.3 to 12.0.
-- Updated tvOS version from 10.2 to 12.0.
-- Added support for watchOS 4.0 or later.
-- Added support for visionOS 1.0 or later.
-- Swift version updated from 4.2 to 5.0.
-
-
 ## Requirements
 - macOS 10.13 or later
 - iOS 12.0 or later
@@ -44,6 +27,16 @@ This change is based on the information provided in [this issue](https://github.
 <!--<small>* No plans to support tvOS 11 or earlier for now</small>-->
 
 ## Installation
+
+### Swift Package Manager
+
+Add the following to your `Package.swift` file.
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/gumob/PunycodeSwift.git", .upToNextMajor(from: "3.0.0"))
+]
+```
 
 ### Carthage
 
@@ -61,9 +54,6 @@ github "gumob/PunycodeSwift" ~> 1.0   # Swift 4.2
 To integrate Punycode into your project, add the following to your `Podfile`.
 
 ```ruby
-platform :ios, '12.0'
-use_frameworks!
-
 pod 'Punycode'             # Latest (Swift 5.0)
 pod 'Punycode', '~> 3.0'   # Swift 5.0
 pod 'Punycode', '~> 2.2'   # Swift 5.0
@@ -75,7 +65,7 @@ pod 'Punycode', '~> 1.0'   # Swift 4.2
 Encode and decode IDNA:
 
 ```swift
-import PunycodeSwift
+import Punycode
 
 var sushi: String = "寿司"
 
@@ -89,7 +79,7 @@ print(sushi)  // "寿司"
 Encode and decode Punycode directly:
 
 ```swift
-import PunycodeSwift
+import Punycode
 
 var sushi: String = "寿司"
 
