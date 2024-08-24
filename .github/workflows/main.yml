@@ -275,7 +275,7 @@ jobs:
           - xcode: "Xcode_15.4"
             runsOn: macOS-14
             name: "Carthage: watchOS"
-            platform: "watchos --skip-tests"
+            platform: "watchos"
           - xcode: "Xcode_15.4"
             runsOn: macOS-14
             name: "Carthage: visionOS"
@@ -326,11 +326,11 @@ jobs:
             configuration: "Debug"
             name: "Pods: tvOS, Debug"
           - xcode: "Xcode_15.4"
-            platform: "watchos --skip-tests"
+            platform: "watchos"
             configuration: "Release"
             name: "Pods: watchOS, Release"
           - xcode: "Xcode_15.4"
-            platform: "watchos --skip-tests"
+            platform: "watchos"
             configuration: "Debug"
             name: "Pods: watchOS, Debug"
           - xcode: "Xcode_15.4"
