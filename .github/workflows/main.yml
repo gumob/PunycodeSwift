@@ -110,13 +110,14 @@ jobs:
           - xcode: "Xcode_15.4"
             name: "Test: Catalyst 15.4"
             runsOn: macos-14
-          - xcode: "Test: Xcode_14.3.1"
+          - xcode: "Xcode_14.3.1"
             name: "Test: Catalyst 14.3.1"
             runsOn: macOS-13
     steps:
       - uses: actions/checkout@v4
       - name: Catalyst
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "platform=macOS" clean test 2>&1 | xcbeautify --renderer github-actions
+    needs: swiftlint
 
   test_iOS:
     name: ${{ matrix.name }}
