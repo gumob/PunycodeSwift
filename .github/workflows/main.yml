@@ -245,6 +245,14 @@ jobs:
             runsOn: macOS-12
             name: "SPM: macOS 12, Swift 5.7.2"
             outputFilter: xcpretty
+          - xcode: "Xcode_13.3.1"
+            runsOn: macOS-12
+            name: "SPM: macOS 12, Swift 5.6.0"
+            outputFilter: xcpretty
+          - xcode: "Xcode_13.2.1"
+            runsOn: macOS-12
+            name: "SPM: macOS 12, Swift 5.5.2"
+            outputFilter: xcpretty
     steps:
       - uses: actions/checkout@v4
       - name: Test SPM
