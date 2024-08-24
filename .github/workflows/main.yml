@@ -170,51 +170,53 @@ jobs:
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-tvOS" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: swiftlint
 
-  # test_visionOS:
-  #   name: ${{ matrix.name }}
-  #   runs-on: ${{ matrix.runsOn }}
-  #   env:
-  #     DEVELOPER_DIR: "/Applications/${{ matrix.xcode }}.app/Contents/Developer"
-  #   timeout-minutes: 10
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       include:
-  #         - destination: "OS=1.2,name=Apple Vision Pro"
-  #           name: "Test: visionOS 1.2"
-  #           testPlan: "visionOS"
-  #           scheme: "Punycode-visionOS"
-  #           xcode: "Xcode_15.4"
-  #           runsOn: macos-14
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: ${{ matrix.name }}
-  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+  test_visionOS:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runsOn }}
+    env:
+      DEVELOPER_DIR: "/Applications/${{ matrix.xcode }}.app/Contents/Developer"
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - destination: "OS=1.2,name=Apple Vision Pro"
+            name: "Test: visionOS 1.2"
+            testPlan: "visionOS"
+            scheme: "Punycode-visionOS"
+            xcode: "Xcode_15.4"
+            runsOn: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: ${{ matrix.name }}
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+    needs: swiftlint
 
-  # test_watchOS:
-  #   name: ${{ matrix.name }}
-  #   runs-on: ${{ matrix.runsOn }}
-  #   env:
-  #     DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
-  #   timeout-minutes: 10
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       include:
-  #         - destination: "OS=10.5,name=Apple Watch Series 9 (45mm)"
-  #           name: "Test: watchOS 10.5"
-  #           testPlan: "watchOS"
-  #           xcode: "Xcode_15.4"
-  #           runsOn: macos-14
-  #         - destination: "OS=9.4,name=Apple Watch Series 8 (45mm)"
-  #           name: "Test: watchOS 9.4"
-  #           testPlan: "watchOS"
-  #           xcode: "Xcode_14.3.1"
-  #           runsOn: macOS-13
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: ${{ matrix.name }}
-  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-watchOS" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+  test_watchOS:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runsOn }}
+    env:
+      DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - destination: "OS=10.5,name=Apple Watch Series 9 (45mm)"
+            name: "Test: watchOS 10.5"
+            testPlan: "watchOS"
+            xcode: "Xcode_15.4"
+            runsOn: macos-14
+          - destination: "OS=9.4,name=Apple Watch Series 8 (45mm)"
+            name: "Test: watchOS 9.4"
+            testPlan: "watchOS"
+            xcode: "Xcode_14.3.1"
+            runsOn: macOS-13
+    steps:
+      - uses: actions/checkout@v4
+      - name: ${{ matrix.name }}
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-watchOS" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+    needs: swiftlint
 
   SPM:
     name: ${{ matrix.name }}
@@ -246,7 +248,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test SPM
         run: swift test -c debug 2>&1 | ${{ matrix.outputFilter }}
-    needs: [test_macOS, test_iOS, test_tvOS]
+    needs: [test_macOS, test_iOS, test_tvOS, test_watchOS, test_visionOS]
     # needs: [test_macOS, test_iOS, test_tvOS, test_visionOS, test_watchOS, test_Catalyst]
 
   carthage:
