@@ -97,26 +97,26 @@ jobs:
           verbose: true
     needs: swiftlint
 
-  # test_Catalyst:
-  #   name: ${{ matrix.name }}
-  #   runs-on: ${{ matrix.runsOn }}
-  #   env:
-  #     DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
-  #   timeout-minutes: 10
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       include:
-  #         - xcode: "Xcode_15.4"
-  #           name: "Test: Catalyst 15.4"
-  #           runsOn: macos-14
-  #         - xcode: "Test: Xcode_14.3.1"
-  #           name: "Catalyst 14.3.1"
-  #           runsOn: macOS-13
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Catalyst
-  #       run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "platform=macOS" clean test 2>&1 | xcbeautify --renderer github-actions
+  test_Catalyst:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runsOn }}
+    env:
+      DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - xcode: "Xcode_15.4"
+            name: "Test: Catalyst 15.4"
+            runsOn: macos-14
+          - xcode: "Test: Xcode_14.3.1"
+            name: "Test: Catalyst 14.3.1"
+            runsOn: macOS-13
+    steps:
+      - uses: actions/checkout@v4
+      - name: Catalyst
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode-iOS" -destination "platform=macOS" clean test 2>&1 | xcbeautify --renderer github-actions
 
   test_iOS:
     name: ${{ matrix.name }}
@@ -248,16 +248,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test SPM
         run: swift test -c debug 2>&1 | ${{ matrix.outputFilter }}
-    needs: [test_macOS, test_iOS, test_tvOS, test_watchOS, test_visionOS]
-    # needs: [test_macOS, test_iOS, test_tvOS, test_visionOS, test_watchOS, test_Catalyst]
+    needs: [test_macOS, test_Catalyst, test_iOS, test_tvOS, test_watchOS, test_visionOS]
 
   carthage:
     runs-on: macos-14
     strategy:
       fail-fast: true
       matrix:
-        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
-        platform: ["ios", "macos", "tvos"]
+        platform: ["macos", "ios", "tvos", "watchos --skip-tests", "visionos"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -276,9 +274,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        scheme: ["Punycode-iOS", "Punycode-macOS", "Punycode-tvOS"]
-        # platform: ["ios", "macos", "tvos", "visionos", "watchos --skip-tests"]
-        platform: ["ios", "macos", "tvos"]
+        scheme: ["Punycode-macOS", "Punycode-iOS", "Punycode-tvOS", "Punycode-watchOS", "Punycode-visionOS"]
+        platform: ["macos", "ios", "tvos", "watchos --skip-tests", "visionos"]
         configuration: ["Debug", "Release"]
     steps:
       - name: Xcode version
