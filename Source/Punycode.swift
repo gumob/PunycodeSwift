@@ -10,7 +10,7 @@ import Foundation
 ///        the class 'Punycode.Punycode' or the module 'Punycode', or see
 ///        https://github.com/apple/swift/issues/56573 for workarounds
 
-public class Punycode {
+public class Puny {
 
     /// Punycode RFC 3492
     /// See https://www.ietf.org/rfc/rfc3492.txt for standard details

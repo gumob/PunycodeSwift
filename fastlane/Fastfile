@@ -118,16 +118,16 @@ lane :test_all do
         # devices: ["iPhone SE (3rd generation)"],
         # clean: true,
         code_coverage: true,
-        open_report: true,
+        open_report: false,
         output_files: "report-ios.html,report-ios.junit",
     )
-    # slather(
-    #     scheme: scheme_iOS,
-    #     proj: default_xcodeproj,
-    #     output_directory: "./reports/iOS",
-    #     html: true,
-    #     show: true
-    # )
+    slather(
+        scheme: scheme_iOS,
+        proj: default_xcodeproj,
+        output_directory: "./fastlane/reports/iOS",
+        html: true,
+        show: false
+    )
     
     desc "Run macOS Tests"
     run_tests(
@@ -135,16 +135,16 @@ lane :test_all do
         destination: "platform=macOS",
         # clean: true,
         code_coverage: true,
-        open_report: true,
+        open_report: false,
         output_files: "report-macos.html,report-macos.junit",
     )
-    # slather(
-    #     scheme: scheme_macOS,
-    #     proj: default_xcodeproj,
-    #     output_directory: "./reports/macOS",
-    #     html: true,
-    #     show: true
-    # )
+    slather(
+        scheme: scheme_macOS,
+        proj: default_xcodeproj,
+        output_directory: "./fastlane/reports/macOS",
+        html: true,
+        show: false
+    )
 
     desc "Run tvOS Tests"
     run_tests(
@@ -152,16 +152,16 @@ lane :test_all do
         destination: "platform=tvOS Simulator,name=Apple TV 4K (3rd generation)",
         # clean: true,
         code_coverage: true,
-        open_report: true,
+        open_report: false,
         output_files: "report-tvos.html,report-tvos.junit",
     )
-    # slather(
-    #     scheme: scheme_tvOS,
-    #     proj: default_xcodeproj,
-    #     output_directory: "./reports/tvOS",
-    #     html: true,
-    #     show: true
-    # )
+    slather(
+        scheme: scheme_tvOS,
+        proj: default_xcodeproj,
+        output_directory: "./fastlane/reports/tvOS",
+        html: true,
+        show: false
+    )
 
     desc "Run watchOS Tests"
     run_tests(
@@ -169,8 +169,15 @@ lane :test_all do
         destination: "platform=watchOS Simulator,name=Apple Watch Series 9 (45mm)",
         # clean: true,
         code_coverage: true,
-        open_report: true,
+        open_report: false,
         output_files: "report-watchos.html,report-watchos.junit",
+    )
+    slather(
+        scheme: scheme_watchOS,
+        proj: default_xcodeproj,
+        output_directory: "./fastlane/reports/watchOS",
+        html: true,
+        show: false
     )
 
     desc "Run visionOS Tests"
@@ -179,8 +186,15 @@ lane :test_all do
         destination: "platform=visionOS Simulator,name=Apple Vision Pro",
         # clean: true,
         code_coverage: true,
-        open_report: true,
+        open_report: false,
         output_files: "report-visionos.html,report-visionos.junit",
+    )
+    slather(
+        scheme: scheme_visionOS,
+        proj: default_xcodeproj,
+        output_directory: "./fastlane/reports/visionOS",
+        html: true,
+        show: false
     )
 
 end
@@ -227,13 +241,13 @@ lane :build_carthage do |options|
         use_xcframeworks: true,
         no_skip_current: true
     )
-    carthage(
-        command: "build",
-        verbose: false,
-        platform: "visionOS",
-        use_xcframeworks: true,
-        no_skip_current: true
-    )
+    # carthage(
+    #     command: "build",
+    #     verbose: false,
+    #     platform: "visionOS",
+    #     use_xcframeworks: true,
+    #     no_skip_current: true
+    # )
 end
 
 desc "Lint Cocoapods"
