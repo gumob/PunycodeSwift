@@ -223,6 +223,11 @@ jobs:
             testPlan: "watchOS"
             xcode: "Xcode_14.3.1"
             runsOn: macOS-13
+          - destination: "OS=8.5,name=Apple Watch Series 8 (45mm)"
+            name: "Test: watchOS 8.5"
+            testPlan: "watchOS"
+            xcode: "Xcode_13.4.1"
+            runsOn: macOS-12
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
