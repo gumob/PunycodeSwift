@@ -139,6 +139,11 @@ jobs:
             testPlan: "iOS"
             xcode: "Xcode_14.3.1"
             runsOn: macOS-13
+          - destination: "OS=15.5,name=iPhone 13 Pro"
+            name: "Test: iOS 15.5"
+            testPlan: "iOS"
+            xcode: "Xcode_13.4.1"
+            runsOn: macOS-12
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
