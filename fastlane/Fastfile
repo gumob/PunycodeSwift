@@ -17,9 +17,9 @@ xcodeproj_file="Punycode.xcodeproj"
 podspec_file="Punycode.podspec"
 scheme = "Punycode"
 
-desc "Prebuild"
-lane :prebuild do
-    test_all
+desc "Run all jobs"
+lane :run_all do
+    tests
     build_spm
     build_carthage
     lint_cocoapods
@@ -82,7 +82,7 @@ end
 ##########################################
 
 desc "Run all tests"
-lane :test_all do
+lane :tests do
     xcclean
 
     desc "Run macOS Tests"

@@ -13,13 +13,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### prebuild
+### run_all
 
 ```sh
-[bundle exec] fastlane prebuild
+[bundle exec] fastlane run_all
 ```
 
-Prebuild
+Run all jobs
 
 ### set_version
 
@@ -37,10 +37,10 @@ Set version number
 
 Bump version number
 
-### test_all
+### tests
 
 ```sh
-[bundle exec] fastlane test_all
+[bundle exec] fastlane tests
 ```
 
 Run all tests
