@@ -6,6 +6,7 @@ name: main
 on:
   push:
     branches:
+      - main
       - develop
     paths:
       - .github/workflows/**
@@ -392,4 +393,9 @@ jobs:
             --configuration=${{ matrix.configuration }} \
             --platforms=${{ matrix.platform }} \
             Punycode.podspec
+      # - name: Pod Push
+      #   if: github.ref == 'refs/heads/main'
+      #   run: |
+      #     pod repo update
+      #     pod trunk push Punycode.podspec --allow-warnings
     needs: carthage
