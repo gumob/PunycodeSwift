@@ -122,7 +122,7 @@ lane :test_all do
         open_report: false,
         # workspace: "Punycode.xcworkspace",
         devices: [
-            "My Mac",
+            # "My Mac",
             # "Any Mac (arm64, x86_64)", 
             "iPhone SE (3rd generation)", 
             "Apple TV 4K (3rd generation)",
