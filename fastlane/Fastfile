@@ -218,6 +218,10 @@ lane :build_spm do |options|
         command: "build",
         parallel: true
     )
+    spm(
+        command: "test",
+        parallel: true
+    )
 end
 
 desc "Build Carthage"
