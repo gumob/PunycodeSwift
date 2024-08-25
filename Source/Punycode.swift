@@ -1,11 +1,10 @@
 //
-// Created by kojirof on 2018-11-19.
-// Copyright (c) 2018 Gumob. All rights reserved.
+// Created by Kojiro Futamura on 2018-11-19.
 //
 
 import Foundation
 
-public class Punycode {
+public class Puny {
 
     /// Punycode RFC 3492
     /// See https://www.ietf.org/rfc/rfc3492.txt for standard details
