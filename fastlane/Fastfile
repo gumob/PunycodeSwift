@@ -13,21 +13,9 @@ ENV["EXPANDED_CODE_SIGN_IDENTITY"] = ""
 ENV["EXPANDED_CODE_SIGN_IDENTITY_NAME"] = ""
 ENV["EXPANDED_PROVISIONING_PROFILE"] = ""
 
-default_xcodeproj = ENV["DEFAULT_XCODEPROJ"]
-default_podspec = ENV["DEFAULT_PODSPEC"]
-
-scheme_iOS = ENV["SCHEME_IOS"]
-scheme_macOS = ENV["SCHEME_MACOS"]
-scheme_tvOS = ENV["SCHEME_TVOS"]
-scheme_watchOS = ENV["SCHEME_WATCHOS"]
-scheme_visionOS = ENV["SCHEME_VISIONOS"]
-
-scheme_iOSTests = ENV["SCHEME_IOS_TEST"]
-scheme_macOSTests = ENV["SCHEME_MACOS_TEST"]
-scheme_tvOSTests = ENV["SCHEME_TVOS_TEST"]
-scheme_watchOSTests = ENV["SCHEME_WATCHOS_TEST"]
-scheme_visionOSTests = ENV["SCHEME_VISIONOS_TEST"]
-
+xcodeproj_file="Punycode.xcodeproj"
+podspec_file="Punycode.podspec"
+scheme = "Punycode"
 framework_info_plist = "./Source/Info.plist"
 test_info_plist = "./Tests/Info.plist"
 
@@ -39,20 +27,6 @@ lane :prebuild do
     lint_cocoapods
 end
 
-puts "default_xcodeproj: #{default_xcodeproj}"
-puts "default_podspec: #{default_podspec}"
-
-puts "scheme_iOS: #{scheme_iOS}"
-puts "scheme_macOS: #{scheme_macOS}"
-puts "scheme_tvOS: #{scheme_tvOS}"
-puts "scheme_watchOS: #{scheme_watchOS}"
-puts "scheme_visionOS: #{scheme_visionOS}"
-
-puts "scheme_iOSTests: #{scheme_iOSTests}"
-puts "scheme_macOSTests: #{scheme_macOSTests}"
-puts "scheme_tvOSTests: #{scheme_tvOSTests}"
-puts "scheme_watchOSTests: #{scheme_watchOSTests}"
-puts "scheme_visionOSTests: #{scheme_visionOSTests}"
 
 ##########################################
 # Versioning
@@ -70,7 +44,7 @@ lane :set_version do
     if matched then
         set_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
         set_info_plist_value(path: test_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
-        version_bump_podspec(path: default_podspec, version_number: new_app_version)
+        version_bump_podspec(path: podspec_file, version_number: new_app_version)
         UI.message("Changed version from #{current_app_version} to #{new_app_version} ")
     else
         UI.error("Invalid version number. #{new_app_version}")
@@ -99,7 +73,7 @@ lane :bump_version do
     new_app_version = [current_app_version_major, current_app_version_minor, current_app_version_patch].join(".")
     set_info_plist_value(path: framework_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
     set_info_plist_value(path: test_info_plist, key: 'CFBundleShortVersionString', value: new_app_version)
-    version_bump_podspec(path: default_podspec, version_number: new_app_version)
+    version_bump_podspec(path: podspec_file, version_number: new_app_version)
     UI.message("Changed version from #{current_app_version_major} to #{new_app_version} ")
 end
 
@@ -114,7 +88,7 @@ lane :test_all do
     desc "Run macOS Tests"
     run_tests(
         destination: "platform=macOS",
-        scheme: "Punycode",
+        scheme: scheme,
         force_quit_simulator: true,
         reset_simulator: true,
         prelaunch_simulator: false,
@@ -123,8 +97,8 @@ lane :test_all do
         output_files: "report-macos.html,report-macos.junit"
     )
     slather(
-        scheme: "Punycode",
-        proj: default_xcodeproj,
+        scheme: scheme,
+        proj: xcodeproj_file,
         output_directory: "./fastlane/reports/macOS",
         html: true,
         show: false
@@ -133,7 +107,7 @@ lane :test_all do
     desc "Run iOS Tests"
     run_tests(
         destination: "platform=iOS Simulator,name=iPhone 15 Pro",
-        scheme: "Punycode",
+        scheme: scheme,
         force_quit_simulator: true,
         reset_simulator: true,
         prelaunch_simulator: false,
@@ -142,8 +116,8 @@ lane :test_all do
         output_files: "report-ios.html,report-ios.junit"
     )
     slather(
-        scheme: "Punycode",
-        proj: default_xcodeproj,
+        scheme: scheme,
+        proj: xcodeproj_file,
         output_directory: "./fastlane/reports/iOS",
         html: true,
         show: false
@@ -152,7 +126,7 @@ lane :test_all do
     desc "Run tvOS Tests"
     run_tests(
         destination: "platform=tvOS Simulator,name=Apple TV 4K (3rd generation)",
-        scheme: "Punycode",
+        scheme: scheme,
         force_quit_simulator: true,
         reset_simulator: true,
         prelaunch_simulator: false,
@@ -161,8 +135,8 @@ lane :test_all do
         output_files: "report-tvos.html,report-tvos.junit"
     )
     slather(
-        scheme: "Punycode",
-        proj: default_xcodeproj,
+        scheme: scheme,
+        proj: xcodeproj_file,
         output_directory: "./fastlane/reports/tvOS",
         html: true,
         show: false
@@ -171,7 +145,7 @@ lane :test_all do
     desc "Run watchOS Tests"
     run_tests(
         destination: "platform=watchOS Simulator,name=Apple Watch Series 9 (45mm)",
-        scheme: "Punycode",
+        scheme: scheme,
         force_quit_simulator: true,
         reset_simulator: true,
         prelaunch_simulator: false,
@@ -180,8 +154,8 @@ lane :test_all do
         output_files: "report-watchos.html,report-watchos.junit"
     )
     slather(
-        scheme: "Punycode",
-        proj: default_xcodeproj,
+        scheme: scheme,
+        proj: xcodeproj_file,
         output_directory: "./fastlane/reports/watchOS",
         html: true,
         show: false
@@ -190,7 +164,7 @@ lane :test_all do
     desc "Run visionOS Tests"
     run_tests(
         destination: "platform=visionOS Simulator,name=Apple Vision Pro",
-        scheme: "Punycode",
+        scheme: scheme,
         force_quit_simulator: true,
         reset_simulator: true,
         prelaunch_simulator: false,
@@ -199,8 +173,8 @@ lane :test_all do
         output_files: "report-visionos.html,report-visionos.junit"
     )
     slather(
-        scheme: "Punycode",
-        proj: default_xcodeproj,
+        scheme: scheme,
+        proj: xcodeproj_file,
         output_directory: "./fastlane/reports/visionOS",
         html: true,
         show: false
@@ -229,15 +203,15 @@ lane :build_carthage do |options|
     carthage(
         command: "build",
         verbose: false,
-        platform: "iOS",
-        use_xcframeworks: true,
+        platform: "Mac",
+        # use_xcframeworks: true,
         no_skip_current: true
     )
     carthage(
         command: "build",
         verbose: false,
-        platform: "Mac",
-        # use_xcframeworks: true,
+        platform: "iOS",
+        use_xcframeworks: true,
         no_skip_current: true
     )
     carthage(
@@ -271,5 +245,5 @@ end
 desc "Push Cocoapods"
 lane :push_cocoapods do |options|
     pod_lib_lint(verbose: true)
-    pod_push(path: default_podspec)
+    pod_push(path: podspec_file)
 end
