@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1540"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -14,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A79A971F2C78CF210079CCA8"
+               BlueprintIdentifier = "A75359AE2C7ABA7C00564274"
                BuildableName = "Punycode.framework"
-               BlueprintName = "Punycode-watchOS"
+               BlueprintName = "Punycode"
                ReferencedContainer = "container:Punycode.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -27,34 +28,16 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A79A971F2C78CF210079CCA8"
-            BuildableName = "Punycode.framework"
-            BlueprintName = "Punycode-watchOS"
-            ReferencedContainer = "container:Punycode.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <CodeCoverageTargets>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A79A97262C78CF220079CCA8"
-            BuildableName = "Punycode-watchOSTests.xctest"
-            BlueprintName = "Punycode-watchOSTests"
-            ReferencedContainer = "container:Punycode.xcodeproj">
-         </BuildableReference>
-      </CodeCoverageTargets>
+      shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A79A97262C78CF220079CCA8"
-               BuildableName = "Punycode-watchOSTests.xctest"
-               BlueprintName = "Punycode-watchOSTests"
+               BlueprintIdentifier = "A75359B62C7ABA7D00564274"
+               BuildableName = "PunycodeTests.xctest"
+               BlueprintName = "PunycodeTests"
                ReferencedContainer = "container:Punycode.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -70,15 +53,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A79A971F2C78CF210079CCA8"
-            BuildableName = "Punycode.framework"
-            BlueprintName = "Punycode-watchOS"
-            ReferencedContainer = "container:Punycode.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -89,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A79A971F2C78CF210079CCA8"
+            BlueprintIdentifier = "A75359AE2C7ABA7C00564274"
             BuildableName = "Punycode.framework"
-            BlueprintName = "Punycode-watchOS"
+            BlueprintName = "Punycode"
             ReferencedContainer = "container:Punycode.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
