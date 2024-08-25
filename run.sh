@@ -7,7 +7,7 @@ if ! command -v fzf &> /dev/null; then
 fi
 
 local option_list=(
-	"clean"
+	"clean xcode"
 	" "
 	"carthage update"
 	" "
@@ -21,38 +21,43 @@ local option_list=(
 	"fastlane build_carthage"
 	"fastlane lint_cocoapods"
 	"fastlane push_cocoapods"
+	" "
 	"fastlane set_version"
 	"fastlane bump_version"
 	" "
+	"fastlane add_plugin versioning"
+	" "
 	"gem install bundler"
 	"gem update bundler"
+	" "
+	"bundle clean"
 	"bundle install"
 	"bundle update"
+	" "
 	"bundle list"
 	"bundle outdated"
-	"bundle clean"
 )
 
 local command=$(printf "%s\n" "${option_list[@]}" | fzf --ansi --prompt="Select a fastlane command > ")
 
 case "$command" in
     "")         echo "No command selected" &&exit 1;;
-	clean)     command="xcodebuild clean;"
-				command+="xcodebuild -alltargets clean;"
-				command+="xcrun --kill-cache;"
-				command+="xcrun simctl erase all;"
-				command+="rm -rf ~/Library/Developer/Xcode/DerivedData/;"
-				;;
-	"clean all")  : ;;
-	carthage*)  command="carthage update --platform macos;"
-				command+="carthage update --platform ios;"
-				command+="carthage update --platform tvos;"
-				command+="carthage update --platform watchos;"
-				command+="carthage update --platform visionos;"
-			   ;;
-    python*)   : ;;
-    fastlane*) command="bundle exec $command";;
-    bundle*)   bundle config set --local clean 'true' && bundle config set --local path '.bundle' ;;
+	"clean xcode")      command="xcodebuild clean;"
+				        command+="xcodebuild -alltargets clean;"
+				        command+="xcrun --kill-cache;"
+				        command+="xcrun simctl erase all;"
+				        command+="rm -rf ~/Library/Developer/Xcode/DerivedData/;"
+				        ;;
+	"clean all")        : ;;
+	"carthage update")  command="carthage update --platform macos;"
+				        command+="carthage update --platform ios;"
+				        command+="carthage update --platform tvos;"
+						command+="carthage update --platform watchos;"
+						command+="carthage update --platform visionos;"
+			       		;;
+	python*)            : ;;
+    fastlane*)          command="bundle exec $command";;
+    bundle*)            bundle config set --local clean 'true' && bundle config set --local path '.bundle' ;;
 esac
 
 # command="bundle exec $command"
