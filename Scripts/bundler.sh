@@ -24,7 +24,7 @@ fi
 bundle config set --local clean 'true'
 bundle config set --local path '.bundle'
 
-command="bundle exec $command"
+# command="bundle exec $command"
 echo "\n$command\n"
 eval $command
 
