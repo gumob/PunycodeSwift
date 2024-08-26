@@ -48,7 +48,7 @@ public class Puny {
         if lowercase.contains(character) {
             return Int(character.unicodeScalars.first!.value - lettersBase)
         } else if digits.contains(character) {
-            return Int(character.unicodeScalars.first!.value - digitsBase) + 26 /// count of lowercase letters range
+            return Int(character.unicodeScalars.first!.value - digitsBase) + 26/// count of lowercase letters range
         } else {
             return nil
         }
@@ -88,7 +88,7 @@ public class Puny {
             repeat {
                 let character: Character = punycodeInput.removeFirst()
                 guard let digit: Int = punycodeIndex(for: character) else {
-                    return nil    /// Failing on badly formatted punycode
+                    return nil/// Failing on badly formatted punycode
                 }
                 i += digit * w
                 let t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias)
@@ -125,7 +125,7 @@ public class Puny {
                 let char = Character(scalar)
                 output.append(char)
             } else if !scalar.isValid {
-                return nil /// Encountered a scalar out of acceptable range
+                return nil/// Encountered a scalar out of acceptable range
             }
         }
         var handled: Int = output.count
