@@ -29,33 +29,63 @@ Punycode is a representation of Unicode with the limited ASCII character subset 
 
 Add the following to your `Package.swift` file.
 
-```swift
-dependencies: [
-    .package(url: "https://github.com/gumob/PunycodeSwift.git", .upToNextMajor(from: "3.0.0"))
-]
-```
+- macOS, iOS, tvOS, watchOS, visionOS, and Swift 5
+    ```swift
+    dependencies: [
+        .package(url: "https://github.com/gumob/PunycodeSwift.git", .upToNextMajor(from: "3.0.0"))
+    ]
+    ```
+
+- macOS, iOS, tvOS, and Swift 5
+    ```swift
+    dependencies: [
+        .package(url: "https://github.com/gumob/PunycodeSwift.git", .upToNextMajor(from: "2.1.1"))
+    ]
+    ```
 
 ### Carthage
 
 Add the following to your `Cartfile` and follow [these instructions](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
-```Certfile
-github "gumob/PunycodeSwift"          # Latest (Swift 5.0)
-github "gumob/PunycodeSwift" ~> 3.0   # Swift 5.0
-github "gumob/PunycodeSwift" ~> 2.2   # Swift 5.0
-github "gumob/PunycodeSwift" ~> 1.0   # Swift 4.2
-```
+- macOS, iOS, tvOS, watchOS, visionOS, and Swift 5
+
+    ```
+    github "gumob/PunycodeSwift" ~> 3.0
+    ```
+
+- macOS, iOS, tvOS, and Swift 5
+
+    ```
+    github "gumob/PunycodeSwift" ~> 2.0
+    ```
+
+- macOS, iOS, tvOS, and Swift 4
+
+    ```
+    github "gumob/PunycodeSwift" ~> 1.0
+    ```
 
 ### CocoaPods
 
-To integrate Punycode into your project, add the following to your `Podfile`.
+To integrate TLDExtract into your project, add the following to your `Podfile`.
 
-```ruby
-pod 'Punycode'             # Latest (Swift 5.0)
-pod 'Punycode', '~> 3.0'   # Swift 5.0
-pod 'Punycode', '~> 2.2'   # Swift 5.0
-pod 'Punycode', '~> 1.0'   # Swift 4.2
-```
+- macOS, iOS, tvOS, watchOS, visionOS, and Swift 5.0
+
+    ```ruby
+    pod 'Punycode', '~> 3.0'
+    ```
+
+- macOS, iOS, tvOS, and Swift 5.0
+
+    ```ruby
+    pod 'Punycode', '~> 2.0'
+    ```
+
+- macOS, iOS, tvOS, and Swift 4.2
+
+    ```ruby
+    pod 'Punycode', '~> 1.0'
+    ```
 
 ## Usage
 

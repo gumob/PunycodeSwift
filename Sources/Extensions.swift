@@ -4,7 +4,9 @@
 
 import Foundation
 
-// For calling site convenience everything is implemented over Substring and String API is wrapped around it
+/// This extension provides methods for encoding and decoding strings using Punycode (RFC 3492) 
+/// and IDNA encoding. It allows for the conversion of Substring instances to their Punycode 
+/// and IDNA representations, facilitating the handling of internationalized domain names.
 public extension Substring {
     /// Returns new string in punycode encoding (RFC 3492)
     ///
@@ -35,6 +37,9 @@ public extension Substring {
     }
 }
 
+/// This extension provides methods for encoding and decoding strings using Punycode (RFC 3492) 
+/// and IDNA encoding. It allows for the conversion of String instances to their Punycode 
+/// and IDNA representations, facilitating the handling of internationalized domain names.
 public extension String {
 
     /// Returns new string in punycode encoding (RFC 3492)

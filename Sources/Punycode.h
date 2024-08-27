@@ -14,5 +14,3 @@ FOUNDATION_EXPORT double PunycodeVersionNumber;
 FOUNDATION_EXPORT const unsigned char PunycodeVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Punycode/PublicHeader.h>
-
-

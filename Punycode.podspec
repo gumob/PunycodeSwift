@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.frameworks                 = 'Foundation'
   s.requires_arc               = true
   s.source                     = { :git => "https://github.com/gumob/PunycodeSwift.git", :tag => "#{s.version}" }
-  s.source_files               = "Source/*.{swift}"
+  s.source_files               = "Sources/*.{swift}"
   s.osx.deployment_target      = "10.13"
   s.ios.deployment_target      = "12.0"
   s.tvos.deployment_target     = "12.0"
