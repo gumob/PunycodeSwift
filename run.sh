@@ -65,7 +65,6 @@ local bundle_init() {
 	rm -rf Gemfile.lock;
 	gem install bundler;
 	bundle install;
-	bundle update;
 	bundle exec fastlane add_plugin versioning;
 }
 
