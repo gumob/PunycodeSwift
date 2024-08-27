@@ -24,6 +24,7 @@ lane :run_all do
     build_spm
     build_carthage
     lint_cocoapods
+    gen_docs
 end
 
 ##########################################
@@ -32,8 +33,8 @@ end
 
 desc "Lint codes with swift-format"
 lane :lint_swift do
-    # sh("swift-format", "format", "--in-place", "--ignore-unparsable-files", "--configuration", "../.swift-format", "--recursive", "../Source", "../Tests")
-    sh("swift-format", "lint", "--ignore-unparsable-files", "--configuration", "../.swift-format", "--recursive", "../Source", "../Tests")
+    # sh("swift-format", "format", "--in-place", "--ignore-unparsable-files", "--configuration", "../.swift-format", "--recursive", "../Sources", "../Tests")
+    sh("swift-format", "lint", "--ignore-unparsable-files", "--configuration", "../.swift-format", "--recursive", "../Sources", "../Tests")
 end
 
 ##########################################
@@ -256,4 +257,15 @@ desc "Push Cocoapods"
 lane :push_cocoapods do |options|
     pod_lib_lint(verbose: true)
     pod_push(path: podspec_file)
+end
+
+##########################################
+# Swift Docs
+##########################################
+
+desc "Generate Swift Docs"
+lane :gen_docs do
+    jazzy(
+        config: ".jazzy.yml"
+    )
 end
