@@ -57,7 +57,7 @@
 		A75359A52C7ABA7C00564274 = {
 			isa = PBXGroup;
 			children = (
-				A75359B12C7ABA7C00564274 /* Source */,
+				A75359B12C7ABA7C00564274 /* Sources */,
 				A75359BB2C7ABA7D00564274 /* Tests */,
 				A75359B02C7ABA7C00564274 /* Products */,
 			);
@@ -72,7 +72,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A75359B12C7ABA7C00564274 /* Source */ = {
+		A75359B12C7ABA7C00564274 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				A75359B22C7ABA7C00564274 /* Punycode.h */,
@@ -80,7 +80,7 @@
 				A745A09E2C7ABB7C005625EF /* Extensions.swift */,
 				A745A0A02C7ABB7C005625EF /* Helpers.swift */,
 			);
-			path = Source;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		A75359BB2C7ABA7D00564274 /* Tests */ = {
@@ -215,7 +215,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swift-format >/dev/null; then\n    swift-format format --in-place --ignore-unparsable-files --configuration .swift-format --recursive Source Tests || true\n    swift-format lint --ignore-unparsable-files --configuration .swift-format --recursive Source Tests || true\nelse\n    echo \"warning: swift-format not installed\"\nfi\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swift-format >/dev/null; then\n    swift-format format --in-place --ignore-unparsable-files --configuration .swift-format --recursive Sources Tests || true\n    swift-format lint --ignore-unparsable-files --configuration .swift-format --recursive Sources Tests || true\nelse\n    echo \"warning: swift-format not installed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

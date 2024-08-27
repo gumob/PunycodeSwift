@@ -4,29 +4,65 @@
 
 import Foundation
 
+/// Puny class provides methods to encode and decode strings using Punycode (RFC 3492).
+/// It allows for the conversion of Unicode strings into ASCII-compatible encoding,
+/// which is essential for domain names and other applications that require ASCII representation.
+///
+/// - Note: This implementation follows the specifications outlined in RFC 3492.
+/// - Usage: Create an instance of Puny and call the appropriate methods for encoding or decoding.
 public class Puny {
 
     /// Punycode RFC 3492
     /// See https://www.ietf.org/rfc/rfc3492.txt for standard details
 
+    /// Base value for Punycode encoding, representing the number of valid characters.
     private let base: Int = 36
+
+    /// Minimum threshold for the number of characters to be encoded.
     private let tMin: Int = 1
+
+    /// Maximum threshold for the number of characters to be encoded.
     private let tMax: Int = 26
+
+    /// Skew value used in the adaptation of the bias.
     private let skew: Int = 38
+
+    /// Damping factor used in the adaptation of the bias.
     private let damp: Int = 700
+
+    /// Initial bias value for the encoding process.
     private let initialBias: Int = 72
+
+    /// Initial value for the encoded characters.
     private let initialN: Int = 128
 
-    /// RFC 3492 specific
+    /// Delimiter used in Punycode encoding to separate encoded segments. (RFC 3492 specific)
     private let delimiter: Character = "-"
+
+    /// Range of lowercase letters used in Punycode encoding.
     private let lowercase: ClosedRange<Character> = "a"..."z"
+
+    /// Range of digits used in Punycode encoding.
     private let digits: ClosedRange<Character> = "0"..."9"
+
+    /// Base value for lowercase letters in Unicode scalar representation.
     private let lettersBase: UInt32 = Character("a").unicodeScalars.first!.value
+
+    /// Base value for digits in Unicode scalar representation.
     private let digitsBase: UInt32 = Character("0").unicodeScalars.first!.value
 
     /// IDNA
     private let ace: String = "xn--"
 
+    /// Adjusts the bias for Punycode encoding based on the given delta and number of points.
+    /// This function is used to adapt the bias during the encoding process to ensure proper
+    /// distribution of encoded characters.
+    ///
+    /// - Parameters:
+    ///   - delta: The value to be adjusted.
+    ///   - numberOfPoints: The number of points to consider for the adjustment.
+    ///   - firstTime: A boolean indicating if this is the first adjustment.
+    /// - Returns: The adjusted bias value as an integer.
     private func adaptBias(_ delta: Int, _ numberOfPoints: Int, _ firstTime: Bool) -> Int {
         var delta: Int = delta
         if firstTime {
@@ -43,7 +79,10 @@ public class Puny {
         return k + ((base - tMin + 1) * delta) / (delta + skew)
     }
 
-    /// Maps a punycode character to index
+    /// Maps a punycode character to its corresponding index.
+    ///
+    /// - Parameter character: The punycode character to be mapped.
+    /// - Returns: The index of the character if it is a valid punycode character; otherwise, nil.
     private func punycodeIndex(for character: Character) -> Int? {
         if lowercase.contains(character) {
             return Int(character.unicodeScalars.first!.value - lettersBase)
@@ -54,7 +93,10 @@ public class Puny {
         }
     }
 
-    /// Maps an index to corresponding punycode character
+    /// Maps an index to its corresponding punycode character.
+    ///
+    /// - Parameter digit: The integer digit to be mapped.
+    /// - Returns: The corresponding punycode character if the digit is valid; otherwise, nil.
     private func punycodeValue(for digit: Int) -> Character? {
         guard digit < base else { return nil }
         if digit < 26 {
@@ -64,16 +106,16 @@ public class Puny {
         }
     }
 
-    /// Decodes punycode encoded string to original representation
+    /// Decodes a punycode encoded string to its original representation.
     ///
-    /// - Parameter punycode: Punycode encoding (RFC 3492)
-    /// - Returns: Decoded string or nil if the input cannot be decoded
+    /// - Parameter punycode: A substring containing the punycode encoding (RFC 3492).
+    /// - Returns: The decoded original string or nil if the input cannot be decoded due to invalid formatting.
     public func decodePunycode(_ punycode: Substring) -> String? {
         var n: Int = initialN
         var i: Int = 0
         var bias: Int = initialBias
         var output: [Character] = []
-        var inputPosition = punycode.startIndex
+        var inputPosition: Substring.Index = punycode.startIndex
 
         let delimiterPosition: Substring.Index = punycode.lastIndex(of: delimiter) ?? punycode.startIndex
         if delimiterPosition > punycode.startIndex {
@@ -91,7 +133,7 @@ public class Puny {
                     return nil/// Failing on badly formatted punycode
                 }
                 i += digit * w
-                let t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias)
+                let t: Int = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias)
                 if digit < t {
                     break
                 }
@@ -101,7 +143,7 @@ public class Puny {
             bias = adaptBias(i - oldI, output.count + 1, oldI == 0)
             n += i / (output.count + 1)
             i %= (output.count + 1)
-            guard n >= 0x80, let scalar = UnicodeScalar(n) else {
+            guard n >= 0x80, let scalar: Unicode.Scalar = UnicodeScalar(n) else {
                 return nil
             }
             output.insert(Character(scalar), at: i)
@@ -111,18 +153,18 @@ public class Puny {
         return String(output)
     }
 
-    /// Encodes string to punycode (RFC 3492)
+    /// Encodes a substring to punycode (RFC 3492).
     ///
-    /// - Parameter input: Input string
-    /// - Returns: Punycode encoded string
+    /// - Parameter input: A substring to be encoded in punycode.
+    /// - Returns: A punycode encoded string or nil if the input contains invalid characters.
     public func encodePunycode(_ input: Substring) -> String? {
         var n: Int = initialN
         var delta: Int = 0
         var bias: Int = initialBias
         var output: String = ""
-        for scalar in input.unicodeScalars {
+        for scalar: Substring.UnicodeScalarView.Element in input.unicodeScalars {
             if scalar.isASCII {
-                let char = Character(scalar)
+                let char: Character = Character(scalar)
                 output.append(char)
             } else if !scalar.isValid {
                 return nil/// Encountered a scalar out of acceptable range
@@ -149,7 +191,7 @@ public class Puny {
                     var q: Int = delta
                     var k: Int = base
                     while true {
-                        let t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias)
+                        let t: Int = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias)
                         if q < t {
                             break
                         }
@@ -172,9 +214,10 @@ public class Puny {
         return output
     }
 
-    /// Returns new string containing IDNA-encoded hostname
+    /// Returns new string containing IDNA-encoded hostname.
     ///
-    /// - Returns: IDNA encoded hostname or nil if the string can't be encoded
+    /// - Parameter input: The Substring to be encoded.
+    /// - Returns: An IDNA encoded hostname or nil if the string can't be encoded.
     public func encodeIDNA(_ input: Substring) -> String? {
         let parts: [Substring] = input.split(separator: ".")
         var output: String = ""
@@ -192,9 +235,10 @@ public class Puny {
         return output
     }
 
-    /// Returns new string containing hostname decoded from IDNA representation
+    /// Returns a new string containing the hostname decoded from IDNA representation.
     ///
-    /// - Returns: Original hostname or nil if the string doesn't contain correct encoding
+    /// - Parameter input: The Substring to be decoded.
+    /// - Returns: The original hostname or nil if the string doesn't contain correct encoding.
     public func decodedIDNA(_ input: Substring) -> String? {
         let parts: [Substring] = input.split(separator: ".")
         var output: String = ""
