@@ -89,7 +89,9 @@ To integrate TLDExtract into your project, add the following to your `Podfile`.
 
 ## Usage
 
-Encode and decode IDNA:
+Full documentation is available at [https://gumob.github.io/PunycodeSwift/swiftdoc/](https://gumob.github.io/PunycodeSwift/swiftdoc/).
+
+### Encode and decode IDNA:
 
 ```swift
 import Punycode
@@ -103,7 +105,7 @@ sushi = sushi.idnaDecoded!
 print(sushi)  // "寿司"
 ```
 
-Encode and decode Punycode directly:
+### Encode and decode Punycode directly:
 
 ```swift
 import Punycode
