@@ -14,7 +14,7 @@ let package = Package(
         .target(
             name: "Punycode",
             dependencies: [],
-            path: "Source"),
+            path: "Sources"),
         .testTarget(
             name: "PunycodeSwiftTests",
             dependencies: ["Punycode"],
