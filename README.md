@@ -48,14 +48,19 @@ Add the following to your `Package.swift` file.
 Add the following to your `Cartfile` and follow [these instructions](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
 - macOS, iOS, tvOS, watchOS, visionOS, and Swift 5
+
     ```
     github "gumob/PunycodeSwift" ~> 3.0
     ```
+
 - macOS, iOS, tvOS, and Swift 5
+
     ```
     github "gumob/PunycodeSwift" ~> 2.0
     ```
+
 - macOS, iOS, tvOS, and Swift 4
+
     ```
     github "gumob/PunycodeSwift" ~> 1.0
     ```
@@ -65,14 +70,19 @@ Add the following to your `Cartfile` and follow [these instructions](https://git
 To integrate TLDExtract into your project, add the following to your `Podfile`.
 
 - macOS, iOS, tvOS, watchOS, visionOS, and Swift 5.0
+
     ```ruby
     pod 'Punycode', '~> 3.0'
     ```
+
 - macOS, iOS, tvOS, and Swift 5.0
+
     ```ruby
     pod 'Punycode', '~> 2.0'
     ```
+
 - macOS, iOS, tvOS, and Swift 4.2
+
     ```ruby
     pod 'Punycode', '~> 1.0'
     ```
