@@ -31,24 +31,17 @@ on:
   #     - Sources/**
   #     - Tests/**
 
+
+env:
+  project_name: Punycode
+  scheme: Punycode
+  podspec_name: Punycode
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # lint_code:
-  #   name: Lint Code
-  #   runs-on: macos-14
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #     - name: Install SwiftLint
-  #       run: brew install swiftlint
-  #     - name: Lint
-  #       run: |
-  #         set -o pipefail
-  #         swiftlint lint --quiet | sed -E 's/^(.*):([0-9]+):([0-9]+): (warning|error|[^:]+): (.*)/::\4 title=Lint error,file=\1,line=\2,col=\3::\5\n\1:\2:\3/'
-
   lint_code:
     name: Lint Code
     runs-on: ubuntu-latest
@@ -103,7 +96,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
         run: |-
-          set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode" -destination "platform=macOS" -enableCodeCoverage ${{ matrix.coverage }} clean test | ${{ matrix.outputFilter }}
+          set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "${{ env.project_name }}.xcodeproj" -scheme ${{ env.scheme }} -destination "platform=macOS" -enableCodeCoverage ${{ matrix.coverage }} clean test | ${{ matrix.outputFilter }}
       - name: Upload coverage to Codecov
         if: ${{ matrix.coverage == 'YES' }}
         uses: codecov/codecov-action@v4
@@ -132,7 +125,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Catalyst
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode" -destination "platform=macOS" clean test 2>&1 | xcbeautify --renderer github-actions
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "${{ env.project_name }}.xcodeproj" -scheme ${{ env.scheme }} -destination "platform=macOS" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: lint_code
 
   test_iOS:
@@ -163,7 +156,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "${{ env.project_name }}.xcodeproj" -scheme ${{ env.scheme }} -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: lint_code
 
   test_tvOS:
@@ -194,7 +187,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "${{ env.project_name }}.xcodeproj" -scheme ${{ env.scheme }} -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: lint_code
 
   test_visionOS:
@@ -210,13 +203,12 @@ jobs:
           - destination: "OS=1.2,name=Apple Vision Pro"
             name: "Test: visionOS 1.2"
             testPlan: "visionOS"
-            scheme: "Punycode"
             xcode: "Xcode_15.4"
             runsOn: macos-14
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "${{ matrix.scheme }}" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "${{ env.project_name }}.xcodeproj" -scheme "${{ env.scheme }}" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: lint_code
 
   test_watchOS:
@@ -247,7 +239,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: ${{ matrix.name }}
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "Punycode.xcodeproj" -scheme "Punycode" -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -project "${{ env.project_name }}.xcodeproj" -scheme ${{ env.scheme }} -destination "${{ matrix.destination }}" clean test 2>&1 | xcbeautify --renderer github-actions
     needs: lint_code
 
   SPM:
@@ -331,7 +323,7 @@ jobs:
             --cache-builds
     needs: SPM
 
-  cocoapods:
+  lint_cocoapods:
     name: "Pods: ${{ matrix.platform }}, ${{ matrix.configuration }}"
     runs-on: ${{ matrix.runsOn }}
     env:
@@ -414,3 +406,69 @@ jobs:
       #     pod repo update
       #     pod trunk push Punycode.podspec --allow-warnings
     needs: carthage
+
+  update_tag:
+    if: github.ref == 'refs/heads/main'
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Extract version and add tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ### Enable error handling and exit the script on pipe failures
+          set -eo pipefail
+          ### Retrieve build settings and execute a command to filter MARKETING_VERSION
+          current_version=$(grep -m1 'MARKETING_VERSION' "${{ env.project_name }}.xcodeproj/project.pbxproj" | sed 's/.*= //;s/;//')
+          echo "Current version: $current_version"
+          ### If the current version is found
+          if [[ $current_version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            ### If the tag exists, delete it from both local and remote
+            git fetch --tags
+            if git tag -l | grep -q "$current_version"; then
+              git tag -d "$current_version"
+              git push origin ":refs/tags/$current_version"
+            fi
+            ### Create a new tag for the current version and push it to the remote repository
+            git tag "$current_version"
+            git push origin "$current_version"
+          else
+            ### If the version could not be retrieved, display an error message
+            echo "Error: Could not retrieve the version."
+          fi
+    needs: lint_cocoapods
+
+  push_cocoapods:
+    if: github.ref == 'refs/heads/main'
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Publish to cocoapods
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        run: |
+          ### Enable error handling and exit the script on pipe failures
+          set -eo pipefail
+          ### Retrieve the current version from the project file
+          current_version=$(grep -m1 'MARKETING_VERSION' "${{ env.project_name }}.xcodeproj/project.pbxproj" | sed 's/.*= //;s/;//')
+          echo "Current version: $current_version"
+          ### Check if the current version is a valid semantic version
+          if [[ ! "$current_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: Invalid version number"
+            exit 1
+          fi
+          ### Check if the current version already exists in the CocoaPods trunk
+          if pod trunk info ${podspec_name} | grep -q "$current_version"; then
+            echo "Start deleting $current_version"
+            ### Delete the existing version from the CocoaPods trunk
+            echo "y" | pod trunk delete ${podspec_name} $current_version || true
+          fi
+          echo "Start pushing $current_version"
+          ### Push the new version to the CocoaPods trunk
+          pod trunk push ${podspec_name}.podspec --allow-warnings
+    needs: update_tag
