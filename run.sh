@@ -26,6 +26,7 @@ local option_list=(
 	"Cocoapods - Trunk push"
 	" "
 	"Github - Update tag"
+	"Github - Fetch remote tag"
 	" "
 	"Public Suffix List - Download latest data"
 )
@@ -122,6 +123,10 @@ local github_update_tag() {
 	fi
 }
 
+local github_fetch_remote_tag() {
+    git fetch --tags --force;
+}
+
 local psl_download() {
     python update-psl.py;
 }
@@ -144,6 +149,7 @@ case "$selected_option" in
 	"Cocoapods - Clean all cache")               cocoapods_clean;;
 	"Cocoapods - Trunk push")                    cocoapods_trunk_push;;
 	"Github - Update tag")                       github_update_tag;;
+	"Github - Fetch remote tag")                 github_fetch_remote_tag;;
 	"Public Suffix List - Download latest data") psl_download;;
 	*)                                           echo "Invalid option $selected_option" && exit 1;;
 esac
