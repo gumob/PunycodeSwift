@@ -1,7 +1,7 @@
 # This workflow will build a Swift project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
 
-name: main
+name: Test and Deploy Framework
 
 on:
   push:
@@ -393,18 +393,13 @@ jobs:
           pod lib lint --verbose \
             --configuration=${{ matrix.configuration }} \
             --platforms=${{ matrix.platform }} \
-            Punycode.podspec
+            ${{ env.podspec_name }}.podspec
       - name: Pod lib lint - Use Static Frameworks
         run: |
           pod lib lint --verbose --use-static-frameworks \
             --configuration=${{ matrix.configuration }} \
             --platforms=${{ matrix.platform }} \
-            Punycode.podspec
-      # - name: Pod Push
-      #   if: github.ref == 'refs/heads/main'
-      #   run: |
-      #     pod repo update
-      #     pod trunk push Punycode.podspec --allow-warnings
+            ${{ env.podspec_name }}.podspec
     needs: carthage
 
   update_tag:
@@ -463,12 +458,12 @@ jobs:
             exit 1
           fi
           ### Check if the current version already exists in the CocoaPods trunk
-          if pod trunk info ${podspec_name} | grep -q "$current_version"; then
+          if pod trunk info ${{ env.podspec_name }} | grep -q "$current_version"; then
             echo "Start deleting $current_version"
             ### Delete the existing version from the CocoaPods trunk
-            echo "y" | pod trunk delete ${podspec_name} $current_version || true
+            echo "y" | pod trunk delete ${{ env.podspec_name }} $current_version || true
           fi
           echo "Start pushing $current_version"
           ### Push the new version to the CocoaPods trunk
-          pod trunk push ${podspec_name}.podspec --allow-warnings
+          pod trunk push ${{ env.podspec_name }}.podspec --allow-warnings
     needs: update_tag
